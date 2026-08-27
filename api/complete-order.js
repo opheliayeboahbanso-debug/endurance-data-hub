@@ -130,11 +130,19 @@ export default async function handler(req, res) {
     const bossResult = await bossResponse.json();
 
     if (!bossResponse.ok) {
-      return res.status(502).json({
-        error: "Payment succeeded but the data order could not be placed.",
-        payment_reference: reference,
-        details: bossResult
-      });
+  console.error("BOSS ORDER FAILED:", {
+    status: bossResponse.status,
+    response: bossResult,
+    network,
+    dataPlan
+  });
+
+  return res.status(502).json({
+    error: "Payment succeeded but the data order could not be placed.",
+    payment_reference: reference,
+    boss_status: bossResponse.status,
+    details: bossResult
+  });
     }
 
     return res.status(200).json({
