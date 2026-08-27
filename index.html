@@ -38,10 +38,186 @@ footer{text-align:center;padding:35px;color:#667085;background:#fff}@media(max-w
 <section id="orders" class="status"><h2>Already placed an order?</h2><p>Use your order reference to check delivery status.</p>
 <form id="statusForm"><input id="ref" placeholder="Order reference" required><button>Check status</button></form><p id="statusResult"></p></section></main>
 <footer>© 2026 Endurance Data Hub • Ghana</footer>
-<script>const PLANS={"MTN": [["1GB", 6], ["2GB", 11], ["3GB", 15], ["4GB", 20], ["5GB", 25], ["6GB", 28], ["7GB", 32], ["8GB", 35], ["9GB", 39], ["10GB", 42], ["12GB", 55], ["15GB", 66], ["20GB", 87], ["25GB", 110], ["30GB", 130], ["40GB", 172], ["50GB", 215], ["100GB", 424]], "MTN Express": [["1GB", 6.1], ["2GB", 11.2], ["3GB", 15.3], ["4GB", 20.4], ["5GB", 25.5], ["6GB", 28.6], ["7GB", 32.7], ["8GB", 35.8], ["10GB", 44], ["12GB", 54.6], ["15GB", 68.5], ["20GB", 89], ["25GB", 112.5], ["30GB", 133], ["40GB", 212], ["50GB", 220], ["100GB", 434]], "AirtelTigo": [["1GB", 5.5], ["2GB", 10], ["3GB", 14], ["4GB", 18.5], ["5GB", 22], ["6GB", 27], ["8GB", 34], ["10GB", 42], ["15GB", 62], ["20GB", 84]], "Telecel": [["10GB", 43], ["15GB", 65], ["20GB", 85], ["25GB", 105], ["30GB", 130], ["40GB", 150], ["50GB", 185], ["100GB", 355]]};
-let network="MTN",selected=null;const bundles=document.getElementById("bundles"),choice=document.getElementById("choice"),price=document.getElementById("price"),pay=document.getElementById("pay"),message=document.getElementById("message");
-function render(){bundles.innerHTML="";PLANS[network].forEach(p=>{let b=document.createElement("button");b.className="bundle";b.innerHTML="<strong>"+p[0]+"</strong><span>GH₵ "+Number(p[1]).toFixed(2)+"</span>";b.onclick=()=>{selected={network,name:p[0],price:p[1]};document.querySelectorAll(".bundle").forEach(x=>x.classList.remove("chosen"));b.classList.add("chosen");choice.textContent=network+" • "+p[0];price.textContent="GH₵ "+Number(p[1]).toFixed(2);pay.disabled=false};bundles.appendChild(b)})}
-document.querySelectorAll("[data-network]").forEach(b=>b.onclick=()=>{network=b.dataset.network;selected=null;pay.disabled=true;choice.textContent="No bundle selected";price.textContent="—";document.querySelectorAll("[data-network]").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()});
-pay.onclick=()=>{const ph=document.getElementById("phone").value;if(!selected||!/^[0-9]{10}$/.test(ph)){message.textContent="Please choose a bundle and enter a valid 10-digit Ghana number.";return}message.textContent="Secure payment connection will be enabled in the backend step."};
-document.getElementById("statusForm").onsubmit=e=>{e.preventDefault();document.getElementById("statusResult").textContent="Order-status connection will be enabled in the backend step."};render();
+<script>
+const PLANS = {
+  "MTN": [
+    ["1GB",6],["2GB",11],["3GB",15],["4GB",20],["5GB",25],
+    ["6GB",28],["7GB",32],["8GB",35],["9GB",39],["10GB",42],
+    ["12GB",55],["15GB",66],["20GB",87],["25GB",110],
+    ["30GB",130],["40GB",172],["50GB",215],["100GB",424]
+  ],
+  "MTN Express": [
+    ["1GB",6.1],["2GB",11.2],["3GB",15.3],["4GB",20.4],["5GB",25.5],
+    ["6GB",28.6],["7GB",32.7],["8GB",35.8],["10GB",44],
+    ["12GB",54.6],["15GB",68.5],["20GB",89],["25GB",112.5],
+    ["30GB",133],["40GB",212],["50GB",220],["100GB",434]
+  ],
+  "AirtelTigo": [
+    ["1GB",5.5],["2GB",10],["3GB",14],["4GB",18.5],["5GB",22],
+    ["6GB",27],["8GB",34],["10GB",42],["15GB",62],["20GB",84]
+  ],
+  "Telecel": [
+    ["10GB",43],["15GB",65],["20GB",85],["25GB",105],
+    ["30GB",130],["40GB",150],["50GB",185],["100GB",355]
+  ]
+};
+
+let network = "MTN";
+let selected = null;
+
+const bundles = document.getElementById("bundles");
+const choice = document.getElementById("choice");
+const price = document.getElementById("price");
+const pay = document.getElementById("pay");
+const message = document.getElementById("message");
+
+function render() {
+  bundles.innerHTML = "";
+
+  PLANS[network].forEach(p => {
+    const b = document.createElement("button");
+    b.className = "bundle";
+    b.innerHTML =
+      "<strong>" + p[0] + "</strong>" +
+      "<span>GH₵ " + Number(p[1]).toFixed(2) + "</span>";
+
+    b.onclick = () => {
+      selected = {
+        network: network,
+        name: p[0],
+        price: Number(p[1])
+      };
+
+      document.querySelectorAll(".bundle")
+        .forEach(x => x.classList.remove("chosen"));
+
+      b.classList.add("chosen");
+
+      choice.textContent = network + " • " + p[0];
+      price.textContent = "GH₵ " + Number(p[1]).toFixed(2);
+      pay.disabled = false;
+      message.textContent = "";
+    };
+
+    bundles.appendChild(b);
+  });
+}
+
+document.querySelectorAll("[data-network]").forEach(b => {
+  b.onclick = () => {
+    network = b.dataset.network;
+    selected = null;
+
+    pay.disabled = true;
+    choice.textContent = "No bundle selected";
+    price.textContent = "—";
+    message.textContent = "";
+
+    document.querySelectorAll("[data-network]")
+      .forEach(x => x.classList.remove("active"));
+
+    b.classList.add("active");
+    render();
+  };
+});
+
+pay.onclick = async () => {
+  const ph = document.getElementById("phone").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!selected) {
+    message.textContent = "Please choose a bundle.";
+    return;
+  }
+
+  if (!/^[0-9]{10}$/.test(ph)) {
+    message.textContent = "Please enter a valid 10-digit Ghana phone number.";
+    return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    message.textContent = "Please enter a valid email address.";
+    return;
+  }
+
+  pay.disabled = true;
+  message.textContent = "Preparing secure payment...";
+
+  try {
+    const response = await fetch("/api/paystack-initialize", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        amount: selected.price,
+        network: selected.network,
+        data_plan: selected.name,
+        beneficiary: ph
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.status || !result.data?.authorization_url) {
+      throw new Error(result.message || "Unable to start payment.");
+    }
+
+    // Store the order details temporarily so we can complete it
+    // after Paystack redirects the customer back to the site.
+    sessionStorage.setItem("pendingOrder", JSON.stringify({
+      reference: result.data.reference,
+      email: email,
+      amount: selected.price,
+      network: selected.network,
+      data_plan: selected.name,
+      beneficiary: ph
+    }));
+
+    window.location.href = result.data.authorization_url;
+
+  } catch (error) {
+    console.error(error);
+    message.textContent =
+      error.message || "Unable to start payment. Please try again.";
+    pay.disabled = false;
+  }
+};
+
+document.getElementById("statusForm").onsubmit = async e => {
+  e.preventDefault();
+
+  const reference = document.getElementById("ref").value.trim();
+  const resultBox = document.getElementById("statusResult");
+
+  if (!reference) return;
+
+  resultBox.textContent = "Checking order...";
+
+  try {
+    const response = await fetch(
+      "/api/order-status?reference=" + encodeURIComponent(reference)
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Unable to check order.");
+    }
+
+    const order = data.data || data;
+
+    resultBox.textContent =
+      "Order status: " +
+      (order.status || "Unavailable") +
+      (order.reference ? " • " + order.reference : "");
+
+  } catch (error) {
+    resultBox.textContent =
+      error.message || "Unable to check order status.";
+  }
+};
+
+render();
 </script></body></html>
