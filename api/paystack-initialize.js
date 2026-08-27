@@ -24,6 +24,10 @@ export default async function handler(req, res) {
           email,
           amount: Math.round(Number(amount) * 100),
           currency: "GHS",
+
+          callback_url:
+            "https://endurance-data-hub.vercel.app/payment-callback.html",
+
           metadata: {
             network,
             data_plan,
@@ -36,7 +40,10 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     return res.status(response.status).json(data);
+
   } catch (error) {
+    console.error(error);
+
     return res.status(500).json({
       error: "Unable to initialize payment"
     });
