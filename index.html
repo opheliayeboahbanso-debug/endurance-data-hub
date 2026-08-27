@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Endurance Data Hub</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f7f8fa;color:#101828}
+header{height:72px;background:#fff;border-bottom:1px solid #e8eaee;display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:40px;height:40px;border-radius:12px;background:#111827;color:#fff;display:grid;place-items:center;font-size:22px;font-weight:900}
+.brand b,.brand small{display:block;letter-spacing:1px}.brand small{font-size:10px;color:#667085}header a{color:#111827;text-decoration:none;font-weight:700}
+main{max-width:1100px;margin:auto}.hero{padding:65px 24px;display:grid;grid-template-columns:1.4fr .6fr;gap:40px;align-items:center}
+.pill{display:inline-block;background:#eef4ff;color:#344054;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:700}
+.hero h1{font-size:clamp(42px,7vw,72px);line-height:.98;margin:18px 0}.hero p{font-size:18px;color:#667085;max-width:560px}
+.btn,.pay,.status button{display:inline-block;border:0;border-radius:12px;background:#111827;color:#fff;padding:14px 20px;font-weight:800;cursor:pointer;text-decoration:none}
+.heroCard{background:#fff;border:1px solid #e5e7eb;border-radius:28px;padding:42px;text-align:center;font-size:20px;box-shadow:0 20px 50px #10182812}.heroCard div{font-size:70px;margin-bottom:15px}
+.shop,.status{padding:0 24px;margin:20px auto 70px}.shop h2,.status h2{font-size:32px}
+.networks{display:flex;gap:10px;margin:20px 0;flex-wrap:wrap}.networks button{border:1px solid #d0d5dd;background:#fff;border-radius:10px;padding:11px 17px;font-weight:700;cursor:pointer}
+.networks .active{background:#111827;color:#fff}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.bundle{border:1px solid #e4e7ec;background:#fff;border-radius:16px;padding:20px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;font-size:16px}
+.bundle.chosen{outline:3px solid #111827}.checkout{background:#fff;border:1px solid #e4e7ec;border-radius:20px;padding:24px;margin-top:25px;max-width:600px}
+.summary{display:flex;justify-content:space-between;background:#f8f9fb;padding:15px;border-radius:12px;margin-bottom:18px}
+.checkout label{font-weight:700;display:block}.checkout input,.status input{width:100%;padding:14px;border:1px solid #d0d5dd;border-radius:10px;margin:8px 0 14px;font-size:16px}
+.pay{width:100%}.pay:disabled{opacity:.45;cursor:not-allowed}.secure,.message{display:block;margin-top:12px;color:#667085}
+.status{background:#fff;border-radius:20px;padding:30px}.status form{display:flex;gap:10px}.status input{margin:0}
+footer{text-align:center;padding:35px;color:#667085;background:#fff}@media(max-width:700px){.hero{grid-template-columns:1fr;padding-top:45px}.heroCard{display:none}.grid{grid-template-columns:1fr 1fr}.status form{display:block}.status button{width:100%}}
+</style></head>
+<body>
+<header><div class="brand"><span class="logo">E</span><div><b>ENDURANCE</b><small>DATA HUB</small></div></div><a href="#orders">Check Order</a></header>
+<main><section class="hero"><div><span class="pill">⚡ Fast • Affordable • Reliable</span><h1>Stay connected.<br>Stay unstoppable.</h1>
+<p>Buy affordable MTN, MTN Express, Telecel and AirtelTigo data bundles quickly and securely.</p><a class="btn" href="#buy">Buy Data</a></div>
+<div class="heroCard"><div>📶</div><strong>Data delivered<br>straight to your number.</strong></div></section>
+<section id="buy" class="shop"><h2>Choose your network</h2><div class="networks">
+<button class="active" data-network="MTN">MTN</button><button data-network="MTN Express">MTN Express</button><button data-network="AirtelTigo">AirtelTigo</button><button data-network="Telecel">Telecel</button>
+</div><div id="bundles" class="grid"></div>
+<div class="checkout"><h3>Your order</h3><div class="summary"><span id="choice">No bundle selected</span><b id="price">—</b></div>
+<label>Beneficiary phone number<input id="phone" maxlength="10" placeholder="0241234567" inputmode="numeric"></label>
+<label>Email address<input id="email" type="email" placeholder="you@example.com"></label>
+<button id="pay" class="pay" disabled>Pay securely with Paystack</button>
+<p id="message" class="message"></p><small class="secure">🔒 Secure payment • Payment details are handled by Paystack</small></div></section>
+<section id="orders" class="status"><h2>Already placed an order?</h2><p>Use your order reference to check delivery status.</p>
+<form id="statusForm"><input id="ref" placeholder="Order reference" required><button>Check status</button></form><p id="statusResult"></p></section></main>
+<footer>© 2026 Endurance Data Hub • Ghana</footer>
+<script>const PLANS={"MTN": [["1GB", 6], ["2GB", 11], ["3GB", 15], ["4GB", 20], ["5GB", 25], ["6GB", 28], ["7GB", 32], ["8GB", 35], ["9GB", 39], ["10GB", 42], ["12GB", 55], ["15GB", 66], ["20GB", 87], ["25GB", 110], ["30GB", 130], ["40GB", 172], ["50GB", 215], ["100GB", 424]], "MTN Express": [["1GB", 6.1], ["2GB", 11.2], ["3GB", 15.3], ["4GB", 20.4], ["5GB", 25.5], ["6GB", 28.6], ["7GB", 32.7], ["8GB", 35.8], ["10GB", 44], ["12GB", 54.6], ["15GB", 68.5], ["20GB", 89], ["25GB", 112.5], ["30GB", 133], ["40GB", 212], ["50GB", 220], ["100GB", 434]], "AirtelTigo": [["1GB", 5.5], ["2GB", 10], ["3GB", 14], ["4GB", 18.5], ["5GB", 22], ["6GB", 27], ["8GB", 34], ["10GB", 42], ["15GB", 62], ["20GB", 84]], "Telecel": [["10GB", 43], ["15GB", 65], ["20GB", 85], ["25GB", 105], ["30GB", 130], ["40GB", 150], ["50GB", 185], ["100GB", 355]]};
+let network="MTN",selected=null;const bundles=document.getElementById("bundles"),choice=document.getElementById("choice"),price=document.getElementById("price"),pay=document.getElementById("pay"),message=document.getElementById("message");
+function render(){bundles.innerHTML="";PLANS[network].forEach(p=>{let b=document.createElement("button");b.className="bundle";b.innerHTML="<strong>"+p[0]+"</strong><span>GH₵ "+Number(p[1]).toFixed(2)+"</span>";b.onclick=()=>{selected={network,name:p[0],price:p[1]};document.querySelectorAll(".bundle").forEach(x=>x.classList.remove("chosen"));b.classList.add("chosen");choice.textContent=network+" • "+p[0];price.textContent="GH₵ "+Number(p[1]).toFixed(2);pay.disabled=false};bundles.appendChild(b)})}
+document.querySelectorAll("[data-network]").forEach(b=>b.onclick=()=>{network=b.dataset.network;selected=null;pay.disabled=true;choice.textContent="No bundle selected";price.textContent="—";document.querySelectorAll("[data-network]").forEach(x=>x.classList.remove("active"));b.classList.add("active");render()});
+pay.onclick=()=>{const ph=document.getElementById("phone").value;if(!selected||!/^[0-9]{10}$/.test(ph)){message.textContent="Please choose a bundle and enter a valid 10-digit Ghana number.";return}message.textContent="Secure payment connection will be enabled in the backend step."};
+document.getElementById("statusForm").onsubmit=e=>{e.preventDefault();document.getElementById("statusResult").textContent="Order-status connection will be enabled in the backend step."};render();
+</script></body></html>
