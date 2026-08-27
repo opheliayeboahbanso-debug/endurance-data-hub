@@ -143,6 +143,10 @@ export default async function handler(req, res) {
     boss_status: bossResponse.status,
     details: bossResult
   });
+    } reference,
+    boss_status: bossResponse.status,
+    details: bossResult
+  });
     }
 
     return res.status(200).json({
