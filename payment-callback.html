@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Payment Processing - Endurance Data Hub</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: system-ui, sans-serif;
+      background: #f7f8fa;
+      color: #101828;
+    }
+
+    .card {
+      width: min(90%, 500px);
+      background: white;
+      border: 1px solid #e4e7ec;
+      border-radius: 20px;
+      padding: 35px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    #message {
+      color: #667085;
+      line-height: 1.6;
+    }
+
+    .ref {
+      background: #f8f9fb;
+      padding: 12px;
+      border-radius: 10px;
+      word-break: break-all;
+      margin-top: 20px;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      background: #111827;
+      color: white;
+      padding: 13px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1 id="title">Checking payment...</h1>
+  <p id="message">
+    Please wait while we confirm your payment and process your data order.
+  </p>
+
+  <div id="reference" class="ref" style="display:none;"></div>
+
+  <a href="/" id="home" style="display:none;">
+    Return to Endurance Data Hub
+  </a>
+</div>
+
+<script>
+(async function () {
+  const params = new URLSearchParams(window.location.search);
+  const reference = params.get("reference");
+
+  const title = document.getElementById("title");
+  const message = document.getElementById("message");
+  const referenceBox = document.getElementById("reference");
+  const home = document.getElementById("home");
+
+  if (!reference) {
+    title.textContent = "Payment reference missing";
+    message.textContent =
+      "We couldn't find the Paystack transaction reference.";
+    home.style.display = "inline-block";
+    return;
+  }
+
+  referenceBox.textContent = "Payment reference: " + reference;
+  referenceBox.style.display = "block";
+
+  try {
+    const pending = sessionStorage.getItem("pendingOrder");
+
+    if (!pending) {
+      throw new Error(
+        "Order information was not found on this device."
+      );
+    }
+
+    const order = JSON.parse(pending);
+
+    if (order.reference !== reference) {
+      throw new Error(
+        "The payment reference does not match the selected order."
+      );
+    }
+
+    const response = await fetch("/api/complete-order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        reference: reference,
+        email: order.email,
+        expectedAmount: order.amount,
+        network: order.network,
+        data_plan: order.data_plan,
+        beneficiary: order.beneficiary
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.error ||
+        "Payment could not be completed."
+      );
+    }
+
+    const bossOrder = result.boss_order || {};
+    const bossData = bossOrder.data || bossOrder;
+
+    title.textContent = "Payment successful! 🎉";
+
+    message.textContent =
+      "Your payment has been confirmed and your data order has been submitted.";
+
+    if (bossData.reference) {
+      referenceBox.textContent =
+        "Order reference: " + bossData.reference;
+    }
+
+    sessionStorage.removeItem("pendingOrder");
+    home.style.display = "inline-block";
+
+  } catch (error) {
+    console.error(error);
+
+    title.textContent = "Payment received — order needs attention";
+
+    message.textContent =
+      error.message ||
+      "We couldn't complete the data order automatically. Please keep your payment reference and contact Endurance Data Hub.";
+
+    home.style.display = "inline-block";
+  }
+})();
+</script>
+
+</body>
+</html>
