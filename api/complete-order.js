@@ -4,40 +4,19 @@ export default async function handler(req, res) {
   }
 
   try {
-    const {
-      reference,
-      email,
-      expectedAmount,
-      network,
-      data_plan,
-      beneficiary
-    } = req.body || {};
+    const { reference } = req.body || {};
 
-    if (
-      !reference ||
-      !email ||
-      expectedAmount === undefined ||
-      !network ||
-      !data_plan ||
-      !beneficiary
-    ) {
+    if (!reference) {
       return res.status(400).json({
-        error: "Missing required order information"
+        error: "Payment reference is required"
       });
     }
 
-    const cleanPhone = String(beneficiary).trim();
-
-    if (!/^[0-9]{10}$/.test(cleanPhone)) {
-      return res.status(400).json({
-        error: "Invalid Ghana phone number"
-      });
-    }
-
-    // 1. Verify the payment directly with Paystack.
-    const paymentResponse = await fetch(
+    // Verify the transaction directly with Paystack
+    const paystackResponse = await fetch(
       `https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`,
       {
+        method: "GET",
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
@@ -45,38 +24,54 @@ export default async function handler(req, res) {
       }
     );
 
-    const payment = await paymentResponse.json();
+    const paystackResult = await paystackResponse.json();
 
-    if (!paymentResponse.ok || !payment.status) {
+    if (!paystackResponse.ok || !paystackResult.status) {
       return res.status(400).json({
         error: "Unable to verify payment",
-        details: payment.message || "Payment verification failed"
+        details: paystackResult.message || "Verification failed"
       });
     }
 
-    const transaction = payment.data;
+    const transaction = paystackResult.data;
 
-    // 2. Only continue when Paystack says the transaction succeeded.
+    // Payment must actually be successful
     if (transaction.status !== "success") {
       return res.status(400).json({
-        error: "Payment has not been completed",
+        error: "Payment was not successful",
         payment_status: transaction.status
       });
     }
 
-    // 3. Make sure the paid amount matches the customer's selected price.
-    const expectedPesewas = Math.round(Number(expectedAmount) * 100);
+    // Read order information from Paystack metadata
+    const metadata = transaction.metadata || {};
 
-    if (
-      !Number.isFinite(expectedPesewas) ||
-      transaction.amount !== expectedPesewas
-    ) {
+    const network = metadata.network;
+    const dataPlan = metadata.data_plan;
+    const beneficiary = metadata.beneficiary;
+
+    if (!network || !dataPlan || !beneficiary) {
       return res.status(400).json({
-        error: "Payment amount does not match the order"
+        error: "Payment metadata is incomplete"
       });
     }
 
-    // 4. Send the paid order to Boss Data Hub.
+    if (!/^[0-9]{10}$/.test(String(beneficiary))) {
+      return res.status(400).json({
+        error: "Invalid beneficiary phone number"
+      });
+    }
+
+    // Confirm that the payment amount matches the selected price
+    const amountPaid = Number(transaction.amount);
+
+    if (!Number.isFinite(amountPaid) || amountPaid <= 0) {
+      return res.status(400).json({
+        error: "Invalid payment amount"
+      });
+    }
+
+    // Send the verified order to Boss Data Hub
     const bossResponse = await fetch(
       "https://bbhubportal.com/api/v1/order",
       {
@@ -88,30 +83,33 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           network,
-          data_plan,
-          beneficiary: cleanPhone
+          data_plan: dataPlan,
+          beneficiary: String(beneficiary)
         })
       }
     );
 
-    const bossData = await bossResponse.json();
+    const bossResult = await bossResponse.json();
 
     if (!bossResponse.ok) {
       return res.status(502).json({
-        error: "Payment succeeded, but the data order could not be placed.",
+        error: "Payment succeeded but the data order could not be placed.",
         payment_reference: reference,
-        details: bossData
+        details: bossResult
       });
     }
 
     return res.status(200).json({
       success: true,
       payment_reference: reference,
-      boss_order: bossData
+      boss_order: bossResult
     });
+
   } catch (error) {
+    console.error(error);
+
     return res.status(500).json({
       error: "Unable to complete order"
     });
   }
-          }
+}
