@@ -12,8 +12,52 @@ export default async function handler(req, res) {
       });
     }
 
+    // Verify payment with Paystack
+    const paystackResponse = await fetch(
+      `https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
+        }
+      }
+    );
+
+    const paystackResult = await paystackResponse.json();
+
+    if (!paystackResponse.ok || !paystackResult.status) {
+      return res.status(400).json({
+        error: "Unable to verify payment",
+        details: paystackResult.message || "Verification failed"
+      });
+    }
+
+    const transaction = paystackResult.data;
+
+    // Payment must be successful
+    if (transaction.status !== "success") {
+      return res.status(400).json({
+        error: "Payment was not successful",
+        payment_status: transaction.status
+      });
+    }
+
+    const metadata = transaction.metadata || {};
+
+    const network = metadata.network;
+    const dataPlan = metadata.data_plan;
+    const beneficiary = String(metadata.beneficiary || "");
+
+    if (!network || !dataPlan || !beneficiary) {
+      return res.status(400).json({
+        error: "Payment information is incomplete"
+      });
+    }
+
+    // Selling prices
     const PRICES = {
-      "MTN": {
+      MTN: {
         "1GB": 6,
         "2GB": 11,
         "3GB": 15,
@@ -54,7 +98,7 @@ export default async function handler(req, res) {
         "100GB": 434
       },
 
-      "AirtelTigo": {
+      AirtelTigo: {
         "1GB": 5.5,
         "2GB": 10,
         "3GB": 14,
@@ -67,7 +111,7 @@ export default async function handler(req, res) {
         "20GB": 84
       },
 
-      "Telecel": {
+      Telecel: {
         "10GB": 43,
         "15GB": 65,
         "20GB": 85,
@@ -79,60 +123,15 @@ export default async function handler(req, res) {
       }
     };
 
-    // Verify the payment with Paystack
-    const paystackResponse = await fetch(
-      `https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
-        }
-      }
-    );
-
-    const paystackResult = await paystackResponse.json();
-
-    if (!paystackResponse.ok || !paystackResult.status) {
-      return res.status(400).json({
-        error: "Unable to verify payment",
-        details: paystackResult.message || "Verification failed"
-      });
-    }
-
-    const transaction = paystackResult.data;
-
-    if (transaction.status !== "success") {
-      return res.status(400).json({
-        error: "Payment was not successful",
-        payment_status: transaction.status
-      });
-    }
-
-    const metadata = transaction.metadata || {};
-
-    const network = metadata.network;
-    const dataPlan = metadata.data_plan;
-    const beneficiary = metadata.beneficiary;
-
-    if (!network || !dataPlan || !beneficiary) {
-      return res.status(400).json({
-        error: "Payment information is incomplete"
-      });
-    }
-
-    // Check that the selected bundle exists
     const expectedPrice = PRICES[network]?.[dataPlan];
 
     if (expectedPrice === undefined) {
       return res.status(400).json({
-        error: "Invalid network or data plan",
-        network,
-        data_plan: dataPlan
+        error: "Invalid network or data plan"
       });
     }
 
-    // Paystack amounts are in pesewas
+    // Paystack amount is in pesewas
     const amountPaid = Number(transaction.amount);
     const expectedAmount = Math.round(expectedPrice * 100);
 
@@ -142,7 +141,8 @@ export default async function handler(req, res) {
       });
     }
 
-    if (!/^[0-9]{10}$/.test(String(beneficiary))) {
+    // Validate Ghana phone number
+    if (!/^[0-9]{10}$/.test(beneficiary)) {
       return res.status(400).json({
         error: "Invalid beneficiary phone number"
       });
@@ -154,7 +154,7 @@ export default async function handler(req, res) {
       });
     }
 
-    // Send the verified order to Boss Data Hub
+    // Place order with Boss
     const bossResponse = await fetch(
       "https://bbhubportal.com/api/v1/order",
       {
@@ -165,9 +165,9 @@ export default async function handler(req, res) {
           "X-API-KEY": process.env.BOSS_API_KEY
         },
         body: JSON.stringify({
-          network: network,
+          network,
           data_plan: dataPlan,
-          beneficiary: String(beneficiary)
+          beneficiary
         })
       }
     );
@@ -178,8 +178,7 @@ export default async function handler(req, res) {
       console.error("BOSS ORDER FAILED:", {
         status: bossResponse.status,
         response: bossResult,
-        network: network,
-        dataPlan: dataPlan
+        payment_reference: reference
       });
 
       return res.status(502).json({
@@ -190,6 +189,8 @@ export default async function handler(req, res) {
       });
     }
 
+    // Return both references.
+    // The Boss reference should be used for order-status checks.
     return res.status(200).json({
       success: true,
       payment_reference: reference,
