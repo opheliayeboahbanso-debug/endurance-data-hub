@@ -1,121 +1,130 @@
 export default async function handler(req, res) {
-
-if (req.method !== "GET") {
-return res.status(405).json({
-success: false,
-error: "Method not allowed"
-});
-}
-
-try {
-
-const { reference } = req.query;
-
-if (!reference) {
-  return res.status(400).json({
-    success: false,
-    error: "Order reference is required"
-  });
-}
-
-if (!process.env.BOSS_API_KEY) {
-  return res.status(500).json({
-    success: false,
-    error: "Boss Data Hub API key is not configured"
-  });
-}
-
-const url =
-  `https://bbhubportal.com/api/v1/order-status?reference=` +
-  `${encodeURIComponent(reference)}`;
-
-const response = await fetch(url, {
-  method: "GET",
-
-  headers: {
-    "Accept": "application/json",
-    "X-API-KEY": process.env.BOSS_API_KEY
+  if (req.method !== "GET") {
+    return res.status(405).json({
+      success: false,
+      error: "Method not allowed"
+    });
   }
-});
 
-/* Get the response as TEXT first.
-   This prevents JSON parsing errors if Boss
-   returns a plain-text error. */
+  try {
+    /* ==========================================
+       1. CHECK API KEY
+       ========================================== */
 
-const text = await response.text();
+    if (!process.env.BOSS_API_KEY) {
+      return res.status(500).json({
+        success: false,
+        error: "BOSS_API_KEY is not configured"
+      });
+    }
 
-let data;
+    /* ==========================================
+       2. GET ORDER REFERENCE
+       ========================================== */
 
-try {
-  data = JSON.parse(text);
-} catch {
+    const reference = String(
+      req.query?.reference || ""
+    ).trim();
 
-  console.error(
-    "BOSS RETURNED NON-JSON:",
-    text
-  );
+    if (!reference) {
+      return res.status(400).json({
+        success: false,
+        error: "Order reference is required"
+      });
+    }
 
-  return res.status(502).json({
-    success: false,
-    error: "Boss returned a non-JSON response",
-    boss_status: response.status,
-    boss_response: text
-  });
-}
+    /* ==========================================
+       3. CALL BOSS ORDER STATUS API
+       ========================================== */
 
-console.log(
-  "BOSS ORDER STATUS RESPONSE:",
-  {
-    reference,
-    status: response.status,
-    data
+    const bossUrl =
+      "https://bbhubportal.com/api/v1/order-status" +
+      "?reference=" +
+      encodeURIComponent(reference);
+
+    const response = await fetch(bossUrl, {
+      method: "GET",
+
+      headers: {
+        Accept: "application/json",
+        "X-API-KEY": process.env.BOSS_API_KEY
+      }
+    });
+
+    /* ==========================================
+       4. SAFELY READ BOSS RESPONSE
+       ========================================== */
+
+    const text = await response.text();
+
+    let data;
+
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = {
+        raw_response: text
+      };
+    }
+
+    /* ==========================================
+       5. RETURN COMPLETE BOSS RESPONSE
+       ========================================== */
+
+    if (!response.ok) {
+      console.error(
+        "BOSS ORDER STATUS FAILED:",
+        {
+          status: response.status,
+          reference,
+          response: data
+        }
+      );
+
+      return res.status(response.status).json({
+        success: false,
+
+        error:
+          "Boss could not find or check this order.",
+
+        reference,
+
+        boss_status:
+          response.status,
+
+        boss_response:
+          data
+      });
+    }
+
+    /* ==========================================
+       6. SUCCESSFUL STATUS RESPONSE
+       ========================================== */
+
+    return res.status(200).json({
+      success: true,
+
+      reference,
+
+      boss_response:
+        data
+    });
+
+  } catch (error) {
+
+    console.error(
+      "ORDER STATUS ERROR:",
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+
+      error:
+        "Unable to check order status",
+
+      details:
+        error.message
+    });
   }
-);
-
-if (!response.ok) {
-
-  return res.status(response.status).json({
-    success: false,
-    error:
-      "Boss could not find or check this order.",
-    boss_status:
-      response.status,
-    reference,
-    details:
-      data
-  });
-}
-
-return res.status(200).json({
-
-  success: true,
-
-  reference,
-
-  data:
-    data.data || data
-
-});
-
-} catch (error) {
-
-console.error(
-  "ORDER STATUS SERVER ERROR:",
-  error
-);
-
-return res.status(500).json({
-
-  success: false,
-
-  error:
-    "Unable to check order",
-
-  details:
-    error.message
-
-});
-
-}
-
 }
