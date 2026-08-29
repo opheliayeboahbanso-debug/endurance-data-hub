@@ -2,6 +2,7 @@ export default async function handler(req, res) {
 
 if (req.method !== "POST") {
 return res.status(405).json({
+success: false,
 error: "Method not allowed"
 });
 }
@@ -12,10 +13,10 @@ const { reference } = req.body || {};
 
 if (!reference) {
   return res.status(400).json({
+    success: false,
     error: "Payment reference is required"
   });
 }
-
 
 /* ==========================================
    CHECK ENVIRONMENT VARIABLES
@@ -23,12 +24,14 @@ if (!reference) {
 
 if (!process.env.PAYSTACK_SECRET_KEY) {
   return res.status(500).json({
+    success: false,
     error: "Paystack secret key is not configured"
   });
 }
 
 if (!process.env.BOSS_API_KEY) {
   return res.status(500).json({
+    success: false,
     error: "Boss Data Hub API key is not configured"
   });
 }
@@ -38,6 +41,7 @@ if (
   !process.env.KV_REST_API_TOKEN
 ) {
   return res.status(500).json({
+    success: false,
     error: "Duplicate protection database is not configured"
   });
 }
@@ -51,16 +55,33 @@ const paystackResponse = await fetch(
   `https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`,
   {
     method: "GET",
+
     headers: {
       Accept: "application/json",
+
       Authorization:
         `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
     }
   }
 );
 
-const paystackResult =
-  await paystackResponse.json();
+const paystackText =
+  await paystackResponse.text();
+
+let paystackResult;
+
+try {
+  paystackResult =
+    JSON.parse(paystackText);
+} catch {
+
+  return res.status(502).json({
+    success: false,
+    error: "Paystack returned an invalid response",
+    details: paystackText
+  });
+
+}
 
 
 if (
@@ -69,10 +90,16 @@ if (
 ) {
 
   return res.status(400).json({
-    error: "Unable to verify payment",
+
+    success: false,
+
+    error:
+      "Unable to verify payment",
+
     details:
       paystackResult.message ||
       "Verification failed"
+
   });
 
 }
@@ -86,15 +113,17 @@ const transaction =
    2. PAYMENT MUST BE SUCCESSFUL
    ========================================== */
 
-if (transaction.status !== "success") {
+if (!transaction || transaction.status !== "success") {
 
   return res.status(400).json({
+
+    success: false,
 
     error:
       "Payment was not successful",
 
     payment_status:
-      transaction.status
+      transaction?.status || "unknown"
 
   });
 
@@ -136,6 +165,8 @@ if (
 
   return res.status(400).json({
 
+    success: false,
+
     error:
       "Payment information is incomplete",
 
@@ -147,12 +178,14 @@ if (
 
 
 /* ==========================================
-   4. VERIFY BENEFICIARY
+   4. VERIFY BENEFICIARY PHONE
    ========================================== */
 
 if (!/^[0-9]{10}$/.test(beneficiary)) {
 
   return res.status(400).json({
+
+    success: false,
 
     error:
       "Invalid beneficiary phone number"
@@ -163,7 +196,7 @@ if (!/^[0-9]{10}$/.test(beneficiary)) {
 
 
 /* ==========================================
-   5. PAYMENT AMOUNT
+   5. VERIFY PAYMENT AMOUNT
    ========================================== */
 
 const amountPaid =
@@ -176,6 +209,8 @@ if (
 ) {
 
   return res.status(400).json({
+
+    success: false,
 
     error:
       "Invalid payment amount"
@@ -220,6 +255,8 @@ if (!redisGetResponse.ok) {
 
   return res.status(500).json({
 
+    success: false,
+
     error:
       "Unable to check payment processing status"
 
@@ -234,6 +271,24 @@ const redisData =
 
 if (redisData.result) {
 
+  let savedOrder =
+    redisData.result;
+
+  /*
+    Some Redis REST responses may return
+    the stored JSON as a string.
+  */
+
+  if (typeof savedOrder === "string") {
+
+    try {
+      savedOrder =
+        JSON.parse(savedOrder);
+    } catch {}
+
+  }
+
+
   return res.status(200).json({
 
     success: true,
@@ -244,7 +299,7 @@ if (redisData.result) {
       reference,
 
     boss_order:
-      redisData.result
+      savedOrder
 
   });
 
@@ -288,6 +343,8 @@ if (!lockResponse.ok) {
 
   return res.status(500).json({
 
+    success: false,
+
     error:
       "Unable to secure payment processing"
 
@@ -304,6 +361,8 @@ if (lockResult.result !== "OK") {
 
   return res.status(409).json({
 
+    success: false,
+
     error:
       "This payment is already being processed.",
 
@@ -316,14 +375,27 @@ if (lockResult.result !== "OK") {
 
 
 /* ==========================================
-   8. PLACE ORDER WITH BOSS DATA HUB
+   8. SEND ORDER TO BOSS
    ========================================== */
 
 let bossResponse;
+
+let bossText;
+
 let bossResult;
 
 
 try {
+
+  console.log(
+    "SENDING ORDER TO BOSS:",
+    {
+      network,
+      data_plan: dataPlan,
+      beneficiary
+    }
+  );
+
 
   bossResponse =
     await fetch(
@@ -332,6 +404,7 @@ try {
         method: "POST",
 
         headers: {
+
           Accept:
             "application/json",
 
@@ -340,27 +413,65 @@ try {
 
           "X-API-KEY":
             process.env.BOSS_API_KEY
+
         },
 
-        body: JSON.stringify({
+        body:
+          JSON.stringify({
 
-          network:
-            network,
+            network:
+              network,
 
-          data_plan:
-            dataPlan,
+            data_plan:
+              dataPlan,
 
-          beneficiary:
-            beneficiary
+            beneficiary:
+              beneficiary
 
-        })
+          })
 
       }
     );
 
 
-  bossResult =
-    await bossResponse.json();
+  /*
+    Read TEXT first.
+
+    This prevents:
+    "Unexpected token A"
+    errors when Boss returns
+    plain text instead of JSON.
+  */
+
+  bossText =
+    await bossResponse.text();
+
+
+  try {
+
+    bossResult =
+      JSON.parse(bossText);
+
+  } catch {
+
+    bossResult = {
+      raw_response:
+        bossText
+    };
+
+  }
+
+
+  console.log(
+    "BOSS ORDER RESPONSE:",
+    {
+      http_status:
+        bossResponse.status,
+
+      response:
+        bossResult
+    }
+  );
 
 
 } catch (bossError) {
@@ -370,8 +481,6 @@ try {
     bossError
   );
 
-
-  /* Remove lock so it can be retried */
 
   await fetch(
 
@@ -393,11 +502,16 @@ try {
 
   return res.status(502).json({
 
+    success: false,
+
     error:
       "Payment succeeded but Boss could not be reached.",
 
     payment_reference:
-      reference
+      reference,
+
+    details:
+      bossError.message
 
   });
 
@@ -419,19 +533,24 @@ if (!bossResponse.ok) {
       response:
         bossResult,
 
-      network:
-        network,
+      network,
 
-      dataPlan:
+      data_plan:
         dataPlan,
 
-      beneficiary:
-        beneficiary
+      beneficiary
+
     }
   );
 
 
-  /* Remove lock because Boss rejected it */
+  /*
+    Remove temporary lock.
+
+    Boss rejected the order, so we allow
+    the same successful payment to be
+    retried while we diagnose the issue.
+  */
 
   await fetch(
 
@@ -451,22 +570,12 @@ if (!bossResponse.ok) {
   );
 
 
-  /*
-    IMPORTANT:
-
-    We return the actual Boss response
-    so we can see exactly why Boss rejected
-    the order.
-
-    This does NOT charge the customer again.
-  */
-
   return res.status(502).json({
 
     success: false,
 
     error:
-      "Boss rejected the order. See details below.",
+      "Boss rejected the order.",
 
     payment_reference:
       reference,
@@ -474,10 +583,14 @@ if (!bossResponse.ok) {
     boss_status:
       bossResponse.status,
 
-    details:
+    boss_response:
       bossResult,
 
-    order_sent: {
+    order_sent:
+      true,
+
+    order_details: {
+
       network:
         network,
 
@@ -486,6 +599,7 @@ if (!bossResponse.ok) {
 
       beneficiary:
         beneficiary
+
     }
 
   });
@@ -528,9 +642,11 @@ if (!redisSaveResponse.ok) {
 
 
   /*
+    IMPORTANT:
+
     Boss already received the order.
 
-    DO NOT send the order again.
+    NEVER send the order again.
   */
 
   return res.status(200).json({
@@ -552,7 +668,7 @@ if (!redisSaveResponse.ok) {
 
 
 /* ==========================================
-   11. REMOVE PROCESSING LOCK
+   11. REMOVE TEMPORARY LOCK
    ========================================== */
 
 await fetch(
@@ -564,8 +680,10 @@ await fetch(
     method: "POST",
 
     headers: {
+
       Authorization:
         `Bearer ${process.env.KV_REST_API_TOKEN}`
+
     }
 
   }
@@ -600,6 +718,8 @@ console.error(
 
 
 return res.status(500).json({
+
+  success: false,
 
   error:
     "Unable to complete order",
