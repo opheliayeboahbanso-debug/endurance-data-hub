@@ -8,10 +8,12 @@ export default async function handler(req, res) {
 
   try {
     /* ==========================================
-       1. CHECK API KEY
+       1. CHECK BOSS API KEY
        ========================================== */
 
-    if (!process.env.BOSS_API_KEY) {
+    const apiKey = process.env.BOSS_API_KEY;
+
+    if (!apiKey) {
       return res.status(500).json({
         success: false,
         error: "BOSS_API_KEY is not configured"
@@ -19,7 +21,7 @@ export default async function handler(req, res) {
     }
 
     /* ==========================================
-       2. GET ORDER REFERENCE
+       2. GET REFERENCE
        ========================================== */
 
     const reference = String(
@@ -34,71 +36,85 @@ export default async function handler(req, res) {
     }
 
     /* ==========================================
-       3. CALL BOSS ORDER STATUS API
+       3. CALL BOSS
        ========================================== */
 
-    const bossUrl =
+    const url =
       "https://bbhubportal.com/api/v1/order-status" +
       "?reference=" +
       encodeURIComponent(reference);
 
-    const response = await fetch(bossUrl, {
+    const bossResponse = await fetch(url, {
       method: "GET",
 
       headers: {
         Accept: "application/json",
-        "X-API-KEY": process.env.BOSS_API_KEY
+        "X-API-KEY": apiKey
       }
     });
 
     /* ==========================================
-       4. SAFELY READ BOSS RESPONSE
+       4. READ RESPONSE SAFELY
        ========================================== */
 
-    const text = await response.text();
+    const rawText = await bossResponse.text();
 
-    let data;
+    let bossData;
 
     try {
-      data = JSON.parse(text);
+      bossData = JSON.parse(rawText);
     } catch {
-      data = {
-        raw_response: text
+      bossData = {
+        raw_response: rawText
       };
     }
 
+    console.log("BOSS ORDER STATUS:", {
+      reference,
+      http_status: bossResponse.status,
+      response: bossData
+    });
+
     /* ==========================================
-       5. RETURN COMPLETE BOSS RESPONSE
+       5. BOSS ERROR
        ========================================== */
 
-    if (!response.ok) {
-      console.error(
-        "BOSS ORDER STATUS FAILED:",
-        {
-          status: response.status,
-          reference,
-          response: data
-        }
-      );
-
-      return res.status(response.status).json({
+    if (!bossResponse.ok) {
+      return res.status(200).json({
         success: false,
+
+        reference,
+
+        status: "unavailable",
 
         error:
           "Boss could not find or check this order.",
 
-        reference,
-
-        boss_status:
-          response.status,
+        boss_http_status:
+          bossResponse.status,
 
         boss_response:
-          data
+          bossData
       });
     }
 
     /* ==========================================
-       6. SUCCESSFUL STATUS RESPONSE
+       6. TRY TO FIND STATUS
+       ========================================== */
+
+    let status = null;
+
+    if (bossData && typeof bossData === "object") {
+      status =
+        bossData.status ??
+        bossData.data?.status ??
+        bossData.order?.status ??
+        bossData.data?.order?.status ??
+        null;
+    }
+
+    /* ==========================================
+       7. RETURN EVERYTHING
        ========================================== */
 
     return res.status(200).json({
@@ -106,8 +122,14 @@ export default async function handler(req, res) {
 
       reference,
 
+      status:
+
+        status !== null
+          ? String(status)
+          : "unknown",
+
       boss_response:
-        data
+        bossData
     });
 
   } catch (error) {
@@ -120,6 +142,12 @@ export default async function handler(req, res) {
     return res.status(500).json({
       success: false,
 
+      reference:
+        req.query?.reference || null,
+
+      status:
+        "error",
+
       error:
         "Unable to check order status",
 
@@ -127,4 +155,4 @@ export default async function handler(req, res) {
         error.message
     });
   }
-}
+      }
