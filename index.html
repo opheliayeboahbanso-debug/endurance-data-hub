@@ -1,11 +1,10 @@
 <!doctype html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Endurance Data Hub | Data, AFA & Results Checkers</title>
-
-<style>
+<title>Endurance Data Hub | Data, AFA & Results Checkers</title><style>
 *{box-sizing:border-box}
 
 :root{
@@ -31,7 +30,6 @@ body{
   color:var(--dark);
 }
 
-/* HEADER */
 header{
   position:sticky;
   top:0;
@@ -100,7 +98,6 @@ nav a:hover{opacity:.8}
   border-radius:12px;
 }
 
-/* HERO */
 .hero{
   background:
     radial-gradient(circle at 85% 20%,#c7dcff 0,transparent 30%),
@@ -134,9 +131,7 @@ nav a:hover{opacity:.8}
   letter-spacing:-2px;
 }
 
-.hero h1 span{
-  color:var(--blue);
-}
+.hero h1 span{color:var(--blue)}
 
 .hero p{
   font-size:18px;
@@ -240,16 +235,13 @@ nav a:hover{opacity:.8}
 .f3{bottom:55px;left:65px}
 .f4{bottom:70px;right:60px}
 
-/* GENERAL */
 .container{
   max-width:1150px;
   margin:auto;
   padding:0 24px;
 }
 
-.section{
-  padding:65px 0;
-}
+.section{padding:65px 0}
 
 .section-head{
   display:flex;
@@ -269,10 +261,7 @@ nav a:hover{opacity:.8}
   margin:6px 0 0;
 }
 
-/* DATA */
-.data-section{
-  background:#fff;
-}
+.data-section{background:#fff}
 
 .networks{
   display:grid;
@@ -291,9 +280,7 @@ nav a:hover{opacity:.8}
   transition:.2s;
 }
 
-.networks button:hover{
-  transform:translateY(-2px);
-}
+.networks button:hover{transform:translateY(-2px)}
 
 .networks .active{
   background:linear-gradient(100deg,#1746ff,#0066ff);
@@ -325,9 +312,7 @@ nav a:hover{opacity:.8}
   box-shadow:0 15px 30px #1746ff18;
 }
 
-.bundle.chosen{
-  outline:3px solid #1746ff;
-}
+.bundle.chosen{outline:3px solid #1746ff}
 
 .bundle-top{
   display:flex;
@@ -368,7 +353,13 @@ nav a:hover{opacity:.8}
   font-weight:800;
 }
 
-/* CHECKOUT */
+.loading{
+  grid-column:1/-1;
+  text-align:center;
+  padding:35px;
+  color:var(--muted);
+}
+
 .checkout{
   background:linear-gradient(135deg,#f1f6ff,#fff);
   border:1px solid #dce5ff;
@@ -438,10 +429,7 @@ nav a:hover{opacity:.8}
   color:var(--muted);
 }
 
-/* SERVICES */
-.services-section{
-  background:#f5f8ff;
-}
+.services-section{background:#f5f8ff}
 
 .services{
   display:grid;
@@ -459,9 +447,7 @@ nav a:hover{opacity:.8}
   transition:.2s;
 }
 
-.service:hover{
-  transform:translateY(-4px);
-}
+.service:hover{transform:translateY(-4px)}
 
 .service-icon{
   width:65px;
@@ -473,25 +459,10 @@ nav a:hover{opacity:.8}
   margin:0 auto 15px;
 }
 
-.green{
-  background:#dcfce7;
-  color:#16a34a;
-}
-
-.blue{
-  background:#dbeafe;
-  color:#1746ff;
-}
-
-.purple{
-  background:#ede9fe;
-  color:#6d28d9;
-}
-
-.orange{
-  background:#ffedd5;
-  color:#ea580c;
-}
+.green{background:#dcfce7;color:#16a34a}
+.blue{background:#dbeafe;color:#1746ff}
+.purple{background:#ede9fe;color:#6d28d9}
+.orange{background:#ffedd5;color:#ea580c}
 
 .service h3{
   margin:8px 0;
@@ -525,10 +496,7 @@ nav a:hover{opacity:.8}
 .service:nth-child(3) button{background:#6d28d9}
 .service:nth-child(4) button{background:#ea580c}
 
-/* ORDER STATUS */
-.status-section{
-  background:#fff;
-}
+.status-section{background:#fff}
 
 .status{
   background:linear-gradient(135deg,#eef5ff,#fff);
@@ -537,13 +505,9 @@ nav a:hover{opacity:.8}
   padding:30px;
 }
 
-.status h2{
-  margin-top:0;
-}
+.status h2{margin-top:0}
 
-.status p{
-  color:var(--muted);
-}
+.status p{color:var(--muted)}
 
 .status form{
   display:flex;
@@ -567,10 +531,7 @@ nav a:hover{opacity:.8}
   font-weight:800;
 }
 
-/* TRUST */
-.trust{
-  background:#f5f8ff;
-}
+.trust{background:#f5f8ff}
 
 .trust-grid{
   display:grid;
@@ -595,7 +556,6 @@ nav a:hover{opacity:.8}
   font-size:13px;
 }
 
-/* FOOTER */
 footer{
   background:linear-gradient(120deg,#062c9d,#1746ff,#003ca8);
   color:#fff;
@@ -610,9 +570,7 @@ footer{
   gap:40px;
 }
 
-footer h3{
-  margin-top:0;
-}
+footer h3{margin-top:0}
 
 footer p,footer a{
   color:#dce7ff;
@@ -635,7 +593,6 @@ footer a{
   font-size:13px;
 }
 
-/* MODAL */
 .modal{
   position:fixed;
   inset:0;
@@ -647,9 +604,7 @@ footer a{
   padding:20px;
 }
 
-.modal.show{
-  display:flex;
-}
+.modal.show{display:flex}
 
 .modal-box{
   background:#fff;
@@ -661,13 +616,9 @@ footer a{
   box-shadow:0 25px 60px #0005;
 }
 
-.modal-icon{
-  font-size:50px;
-}
+.modal-icon{font-size:50px}
 
-.modal-box h3{
-  font-size:25px;
-}
+.modal-box h3{font-size:25px}
 
 .modal-box p{
   color:var(--muted);
@@ -684,104 +635,59 @@ footer a{
   cursor:pointer;
 }
 
-/* MOBILE */
 @media(max-width:850px){
   nav{display:none}
 
-  .hero-inner{
-    grid-template-columns:1fr;
-  }
+  .hero-inner{grid-template-columns:1fr}
 
-  .hero-card{
-    min-height:300px;
-  }
+  .hero-card{min-height:300px}
 
-  .networks{
-    grid-template-columns:repeat(2,1fr);
-  }
+  .networks{grid-template-columns:repeat(2,1fr)}
 
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+  .grid{grid-template-columns:repeat(2,1fr)}
 
-  .services{
-    grid-template-columns:repeat(2,1fr);
-  }
+  .services{grid-template-columns:repeat(2,1fr)}
 
-  .trust-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+  .trust-grid{grid-template-columns:repeat(2,1fr)}
 
-  .footer-grid{
-    grid-template-columns:1fr;
-  }
+  .footer-grid{grid-template-columns:1fr}
 }
 
 @media(max-width:550px){
-  header{
-    padding:0 4%;
-  }
+  header{padding:0 4%}
 
-  .header-btn{
-    display:none;
-  }
+  .header-btn{display:none}
 
-  .hero{
-    padding:45px 5%;
-  }
+  .hero{padding:45px 5%}
 
-  .hero h1{
-    font-size:45px;
-  }
+  .hero h1{font-size:45px}
 
-  .hero p{
-    font-size:16px;
-  }
+  .hero p{font-size:16px}
 
-  .container{
-    padding:0 16px;
-  }
+  .container{padding:0 16px}
 
-  .section{
-    padding:45px 0;
-  }
+  .section{padding:45px 0}
 
-  .section-head h2{
-    font-size:28px;
-  }
+  .section-head h2{font-size:28px}
 
-  .networks{
-    grid-template-columns:1fr 1fr;
-  }
+  .networks{grid-template-columns:1fr 1fr}
 
   .grid{
     grid-template-columns:1fr 1fr;
     gap:10px;
   }
 
-  .bundle{
-    padding:15px;
-  }
+  .bundle{padding:15px}
 
-  .bundle-size{
-    font-size:23px;
-  }
+  .bundle-size{font-size:23px}
 
-  .bundle-price{
-    font-size:17px;
-  }
+  .bundle-price{font-size:17px}
 
-  .services{
-    grid-template-columns:1fr;
-  }
+  .services{grid-template-columns:1fr}
 
-  .trust-grid{
-    grid-template-columns:1fr 1fr;
-  }
+  .trust-grid{grid-template-columns:1fr 1fr}
 
-  .status form{
-    display:block;
-  }
+  .status form{display:block}
 
   .status button{
     width:100%;
@@ -789,427 +695,337 @@ footer a{
     margin-top:10px;
   }
 
-  .status input{
-    width:100%;
-  }
+  .status input{width:100%}
 
-  .hero-card{
-    display:none;
-  }
+  .hero-card{display:none}
 }
-</style>
-</head>
-
-<body>
-
-<header>
+</style></head><body><header>
   <div class="brand">
     <span class="logo">E</span>
     <div>
       <b>ENDURANCE</b>
       <small>DATA HUB</small>
     </div>
-  </div>
-
-  <nav>
+  </div>  <nav>
     <a href="#buy">Buy Data</a>
     <a href="#services">Other Services</a>
     <a href="#orders">Check Order</a>
-  </nav>
+  </nav><a class="header-btn" href="#buy">Buy Now ⚡</a>
 
-  <a class="header-btn" href="#buy">Buy Now ⚡</a>
-</header>
+</header><section class="hero">
+  <div class="hero-inner"><div>
+  <span class="pill">⚡ FAST • AFFORDABLE • RELIABLE</span>
 
+  <h1>
+    Stay connected.<br>
+    <span>We've got you!</span>
+  </h1>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
+  <p>
+    Buy affordable data bundles, register for AFA,
+    check BECE and WASSCE results, and access school
+    placement services quickly and conveniently.
+  </p>
 
-    <div>
-      <span class="pill">⚡ FAST • AFFORDABLE • RELIABLE</span>
+  <div class="hero-buttons">
+    <a class="btn" href="#buy">📶 Buy Data</a>
+    <a class="btn secondary" href="#services">✨ Other Services</a>
+  </div>
 
-      <h1>
-        Stay connected.<br>
-        <span>We've got you!</span>
-      </h1>
+  <div class="hero-features">
+    <div class="feature">⚡ Fast Delivery</div>
+    <div class="feature">🔒 Secure Payment</div>
+    <div class="feature">🎧 Reliable Service</div>
+  </div>
+</div>
 
-      <p>
-        Buy affordable data bundles, register for AFA,
-        check BECE and WASSCE results, and access school
-        placement services quickly and conveniently.
-      </p>
+<div class="hero-card">
+  <div class="float f1">📶</div>
+  <div class="float f2">📱</div>
+  <div class="float f3">🎓</div>
+  <div class="float f4">📝</div>
 
-      <div class="hero-buttons">
-        <a class="btn" href="#buy">📶 Buy Data</a>
-        <a class="btn secondary" href="#services">✨ Other Services</a>
-      </div>
-
-      <div class="hero-features">
-        <div class="feature">⚡ Fast Delivery</div>
-        <div class="feature">🔒 Secure Payment</div>
-        <div class="feature">🎧 Reliable Service</div>
-      </div>
+  <div class="hero-phone">
+    <div class="hero-phone-inner">
+      ⚡<br>
+      Endurance<br>
+      Data Hub
     </div>
-
-    <div class="hero-card">
-      <div class="float f1">📶</div>
-      <div class="float f2">📱</div>
-      <div class="float f3">🎓</div>
-      <div class="float f4">📝</div>
-
-      <div class="hero-phone">
-        <div class="hero-phone-inner">
-          ⚡<br>
-          Endurance<br>
-          Data Hub
-        </div>
-      </div>
-    </div>
+  </div>
+</div>
 
   </div>
-</section>
-
-
-<!-- DATA -->
-<section id="buy" class="section data-section">
-<div class="container">
-
-  <div class="section-head">
+</section><section id="buy" class="section data-section">
+<div class="container">  <div class="section-head">
     <div>
       <h2>📶 Data Bundles</h2>
       <p>Choose your network and bundle.</p>
     </div>
-  </div>
-
-  <div class="networks">
+  </div>  <div class="networks">
     <button class="active" data-network="MTN">🟡 MTN</button>
-    <button data-network="MTN Express">⚡ MTN Express</button>
-    <button data-network="AirtelTigo">🔴 AirtelTigo</button>
+    <button data-network="Express(MTN)">⚡ MTN Express</button>
+    <button data-network="Airteltigo">🔴 AirtelTigo</button>
     <button data-network="Telecel">🟢 Telecel</button>
-  </div>
+  </div>  <div id="bundles" class="grid">
+    <div class="loading">Loading current data bundles...</div>
+  </div>  <div class="checkout"><h3>🛒 Your Order</h3>
 
-  <div id="bundles" class="grid"></div>
-
-  <div class="checkout">
-
-    <h3>🛒 Your Order</h3>
-
-    <div class="summary">
-      <span id="choice">No bundle selected</span>
-      <b id="price">—</b>
-    </div>
-
-    <label>
-      Beneficiary phone number
-      <input
-        id="phone"
-        maxlength="10"
-        placeholder="0241234567"
-        inputmode="numeric"
-      >
-    </label>
-
-    <label>
-      Email address
-      <input
-        id="email"
-        type="email"
-        placeholder="you@example.com"
-      >
-    </label>
-
-    <button id="pay" class="pay" disabled>
-      Pay securely with Paystack
-    </button>
-
-    <p id="message" class="message"></p>
-
-    <small class="secure">
-      🔒 Secure payment • Payment details are handled by Paystack
-    </small>
-
-  </div>
-
+<div class="summary">
+  <span id="choice">No bundle selected</span>
+  <b id="price">—</b>
 </div>
-</section>
 
+<label>
+  Beneficiary phone number
+  <input
+    id="phone"
+    maxlength="10"
+    placeholder="0241234567"
+    inputmode="numeric"
+  >
+</label>
 
-<!-- OTHER SERVICES -->
-<section id="services" class="section services-section">
-<div class="container">
+<label>
+  Email address
+  <input
+    id="email"
+    type="email"
+    placeholder="you@example.com"
+  >
+</label>
 
-  <div class="section-head">
+<button id="pay" class="pay" disabled>
+  Pay securely with Paystack
+</button>
+
+<p id="message" class="message"></p>
+
+<small class="secure">
+  🔒 Secure payment • Payment details are handled by Paystack
+</small>
+
+  </div></div>
+</section><section id="services" class="section services-section">
+<div class="container">  <div class="section-head">
     <div>
       <h2>✨ Other Services</h2>
       <p>We offer more than just data.</p>
     </div>
-  </div>
-
-  <div class="services">
-
-    <div class="service">
-      <div class="service-icon green">📝</div>
-      <h3>AFA Registration</h3>
-      <p>
-        Get assistance with your
-        Apprenticeship Forms Automation
-        (AFA) registration.
-      </p>
-      <div class="service-price">GH₵20.00</div>
-      <button onclick="showService('AFA Registration','GH₵20.00')">
-        Register Now →
-      </button>
-    </div>
-
-
-    <div class="service">
-      <div class="service-icon blue">🎓</div>
-      <h3>BECE Results Checker</h3>
-      <p>
-        Check your BECE results quickly
-        and conveniently.
-      </p>
-      <div class="service-price">GH₵22.00</div>
-      <button onclick="showService('BECE Results Checker','GH₵22.00')">
-        Check Now →
-      </button>
-    </div>
-
-
-    <div class="service">
-      <div class="service-icon purple">🎓</div>
-      <h3>WASSCE Results Checker</h3>
-      <p>
-        Check your WASSCE results
-        quickly and conveniently.
-      </p>
-      <div class="service-price">GH₵25.00</div>
-      <button onclick="showService('WASSCE Results Checker','GH₵25.00')">
-        Check Now →
-      </button>
-    </div>
-
-
-    <div class="service">
-      <div class="service-icon orange">🏫</div>
-      <h3>School Placement Checker</h3>
-      <p>
-        Check your school placement
-        results with ease.
-      </p>
-      <div class="service-price">GH₵25.00</div>
-      <button onclick="showService('School Placement Checker','GH₵25.00')">
-        Check Now →
-      </button>
-    </div>
-
-  </div>
-
+  </div>  <div class="services"><div class="service">
+  <div class="service-icon green">📝</div>
+  <h3>AFA Registration</h3>
+  <p>
+    Get assistance with your
+    Apprenticeship Forms Automation
+    (AFA) registration.
+  </p>
+  <div class="service-price">GH₵20.00</div>
+  <button onclick="showService('AFA Registration','GH₵20.00')">
+    Register Now →
+  </button>
 </div>
-</section>
 
-
-<!-- ORDER STATUS -->
-<section id="orders" class="section status-section">
-<div class="container">
-
-  <div class="status">
-
-    <h2>🔎 Check Your Order</h2>
-
-    <p>
-      Enter your order reference to check the current
-      delivery status of your data order.
-    </p>
-
-    <form id="statusForm">
-
-      <input
-        id="ref"
-        placeholder="Order reference"
-        required
-      >
-
-      <button type="submit">
-        Check Order
-      </button>
-
-    </form>
-
-    <p id="statusResult"></p>
-
-  </div>
-
+<div class="service">
+  <div class="service-icon blue">🎓</div>
+  <h3>BECE Results Checker</h3>
+  <p>
+    Check your BECE results quickly
+    and conveniently.
+  </p>
+  <div class="service-price">GH₵22.00</div>
+  <button onclick="showService('BECE Results Checker','GH₵22.00')">
+    Check Now →
+  </button>
 </div>
-</section>
 
-
-<!-- TRUST -->
-<section class="section trust">
-<div class="container">
-
-  <div class="trust-grid">
-
-    <div class="trust-item">
-      <strong>🔒 Secure</strong>
-      <span>Your payment details are handled securely by Paystack.</span>
-    </div>
-
-    <div class="trust-item">
-      <strong>⚡ Fast Delivery</strong>
-      <span>Data orders are submitted automatically after payment.</span>
-    </div>
-
-    <div class="trust-item">
-      <strong>🎧 Reliable</strong>
-      <span>We're here to help when you need us.</span>
-    </div>
-
-    <div class="trust-item">
-      <strong>💰 Affordable</strong>
-      <span>Get convenient prices for your everyday needs.</span>
-    </div>
-
-  </div>
-
+<div class="service">
+  <div class="service-icon purple">🎓</div>
+  <h3>WASSCE Results Checker</h3>
+  <p>
+    Check your WASSCE results
+    quickly and conveniently.
+  </p>
+  <div class="service-price">GH₵25.00</div>
+  <button onclick="showService('WASSCE Results Checker','GH₵25.00')">
+    Check Now →
+  </button>
 </div>
-</section>
 
+<div class="service">
+  <div class="service-icon orange">🏫</div>
+  <h3>School Placement Checker</h3>
+  <p>
+    Check your school placement
+    results with ease.
+  </p>
+  <div class="service-price">GH₵25.00</div>
+  <button onclick="showService('School Placement Checker','GH₵25.00')">
+    Check Now →
+  </button>
+</div>
 
-<!-- FOOTER -->
-<footer>
+  </div></div>
+</section><section id="orders" class="section status-section">
+<div class="container">  <div class="status"><h2>🔎 Check Your Order</h2>
 
-<div class="footer-grid">
+<p>
+  Enter your order reference to check the current
+  delivery status of your data order.
+</p>
 
-  <div>
+<form id="statusForm">
+
+  <input
+    id="ref"
+    placeholder="Order reference"
+    required
+  >
+
+  <button type="submit">
+    Check Order
+  </button>
+
+</form>
+
+<p id="statusResult"></p>
+
+  </div></div>
+</section><section class="section trust">
+<div class="container">  <div class="trust-grid"><div class="trust-item">
+  <strong>🔒 Secure</strong>
+  <span>Your payment details are handled securely by Paystack.</span>
+</div>
+
+<div class="trust-item">
+  <strong>⚡ Fast Delivery</strong>
+  <span>Data orders are submitted automatically after payment.</span>
+</div>
+
+<div class="trust-item">
+  <strong>🎧 Reliable</strong>
+  <span>We're here to help when you need us.</span>
+</div>
+
+<div class="trust-item">
+  <strong>💰 Affordable</strong>
+  <span>Get convenient prices for your everyday needs.</span>
+</div>
+
+  </div></div>
+</section><footer><div class="footer-grid">  <div>
     <h3>⚡ Endurance Data Hub</h3>
     <p>
       Your one-stop shop for data bundles,
       AFA registration, results checking
       and more.
     </p>
-  </div>
-
-  <div>
+  </div>  <div>
     <h3>Quick Links</h3>
     <a href="#buy">Buy Data</a>
     <a href="#services">Other Services</a>
     <a href="#orders">Check Order</a>
-  </div>
-
-  <div>
+  </div>  <div>
     <h3>Support</h3>
     <p>Need help with an order?</p>
     <p>Contact Endurance Data Hub for assistance.</p>
-  </div>
-
-</div>
-
-<div class="copyright">
+  </div></div><div class="copyright">
   © 2026 Endurance Data Hub • Ghana • All rights reserved.
-</div>
+</div></footer><div id="serviceModal" class="modal">  <div class="modal-box"><div class="modal-icon">✨</div>
 
-</footer>
+<h3 id="modalTitle">Service</h3>
 
+<p id="modalText"></p>
 
-<!-- SERVICE MODAL -->
-<div id="serviceModal" class="modal">
+<button class="close-modal" onclick="closeService()">
+  Close
+</button>
 
-  <div class="modal-box">
+  </div></div><script>
 
-    <div class="modal-icon">✨</div>
-
-    <h3 id="modalTitle">Service</h3>
-
-    <p id="modalText"></p>
-
-    <button class="close-modal" onclick="closeService()">
-      Close
-    </button>
-
-  </div>
-
-</div>
-
-
-<script>
-
-/* =========================
-   DATA PLANS
-========================= */
-
-const PLANS = {
-
-  "MTN": [
-    ["1GB",6],
-    ["2GB",11],
-    ["3GB",15],
-    ["4GB",20],
-    ["5GB",25],
-    ["6GB",28],
-    ["7GB",32],
-    ["8GB",35],
-    ["9GB",39],
-    ["10GB",42],
-    ["12GB",55],
-    ["15GB",66],
-    ["20GB",87],
-    ["25GB",110],
-    ["30GB",130],
-    ["40GB",172],
-    ["50GB",215],
-    ["100GB",424]
-  ],
-
-  "MTN Express": [
-    ["1GB",6.1],
-    ["2GB",11.2],
-    ["3GB",15.3],
-    ["4GB",20.4],
-    ["5GB",25.5],
-    ["6GB",28.6],
-    ["7GB",32.7],
-    ["8GB",35.8],
-    ["10GB",44],
-    ["12GB",54.6],
-    ["15GB",68.5],
-    ["20GB",89],
-    ["25GB",112.5],
-    ["30GB",133],
-    ["40GB",212],
-    ["50GB",220],
-    ["100GB",434]
-  ],
-
-  "AirtelTigo": [
-    ["1GB",5.5],
-    ["2GB",10],
-    ["3GB",14],
-    ["4GB",18.5],
-    ["5GB",22],
-    ["6GB",27],
-    ["8GB",34],
-    ["10GB",42],
-    ["15GB",62],
-    ["20GB",84]
-  ],
-
-  "Telecel": [
-    ["10GB",43],
-    ["15GB",65],
-    ["20GB",85],
-    ["25GB",105],
-    ["30GB",130],
-    ["40GB",150],
-    ["50GB",185],
-    ["100GB",355]
-  ]
-
-};
-
+/* =====================================================
+   LIVE DATABOSSHUB BUNDLES
+   ===================================================== */
 
 let network = "MTN";
 let selected = null;
+let liveBundles = {};
+
+/*
+  These are your existing profit margins.
+
+  DataBoss prices are fetched automatically.
+  Your customer price = current DataBoss price + margin.
+*/
+
+const MARGINS = {
+
+  "MTN": {
+    "1 GB":1.80,
+    "2 GB":2.60,
+    "3 GB":2.40,
+    "4 GB":3.20,
+    "5 GB":4.00,
+    "6 GB":2.80,
+    "7GB":2.60,
+    "8 GB":1.40,
+    "9 GB":1.20,
+    "10 GB":2.00,
+    "12GB":4.60,
+    "15 GB":3.00,
+    "20 GB":3.00,
+    "25 GB":5.00,
+    "30 GB":4.00,
+    "40 GB":4.00,
+    "50 GB":5.00,
+    "100":4.00,
+    "100 GB":4.00
+  },
+
+  "Express(MTN)": {
+    "1 GB":1.80,
+    "2 GB":2.60,
+    "3 GB":2.40,
+    "4 GB":3.20,
+    "5 GB":4.00,
+    "6 GB":2.80,
+    "7GB":2.60,
+    "8 GB":1.40,
+    "10 GB":2.00,
+    "12GB":3.00,
+    "15 GB":4.00,
+    "20 GB":3.00,
+    "25 GB":5.00,
+    "30 GB":4.00,
+    "40 GB":40.00,
+    "50 GB":5.00,
+    "100 GB":4.00
+  },
+
+  "Airteltigo": {
+    "1 GB":1.50,
+    "2 GB":2.00,
+    "3 GB":2.00,
+    "4 GB":2.00,
+    "5 GB":2.00,
+    "6 GB":2.00,
+    "8 GB":2.00,
+    "10 GB":2.00,
+    "15 GB":2.00,
+    "20 GB":2.00
+  },
+
+  "Telecel": {
+    "10 GB":3.00,
+    "15 GB":10.00,
+    "20 GB":10.00,
+    "25 GB":12.00,
+    "30 GB":15.00,
+    "40 GB":5.00,
+    "50 GB":3.00,
+    "100 GB":2.00
+  }
+
+};
 
 const bundles = document.getElementById("bundles");
 const choice = document.getElementById("choice");
@@ -1218,30 +1034,178 @@ const pay = document.getElementById("pay");
 const message = document.getElementById("message");
 
 
-/* =========================
+/* =====================================================
+   NORMALIZE PLAN NAMES
+   ===================================================== */
+
+function normalizePlanName(name){
+
+  return String(name)
+    .replace(/\s+/g," ")
+    .trim();
+
+}
+
+
+/* =====================================================
+   LOAD LIVE BUNDLES
+   ===================================================== */
+
+async function loadBundles(){
+
+  bundles.innerHTML =
+    '<div class="loading">⏳ Loading current bundle prices...</div>';
+
+  try{
+
+    const response = await fetch(
+      "/api/bundles?network=" +
+      encodeURIComponent(network),
+      {
+        method:"GET",
+        headers:{
+          "Accept":"application/json"
+        }
+      }
+    );
+
+    const result = await response.json();
+
+    if(!response.ok){
+
+      throw new Error(
+        result.error ||
+        "Unable to load bundle prices."
+      );
+
+    }
+
+    const list =
+      result?.data?.bundles ||
+      result?.bundles ||
+      [];
+
+    if(!Array.isArray(list) || list.length === 0){
+
+      throw new Error(
+        "No bundles are currently available for this network."
+      );
+
+    }
+
+    liveBundles[network] = list;
+
+    render();
+
+  }catch(error){
+
+    console.error("BUNDLE LOAD ERROR:",error);
+
+    bundles.innerHTML = `
+      <div class="loading">
+        ❌ ${error.message || "Unable to load bundles."}
+        <br><br>
+        <button
+          onclick="loadBundles()"
+          style="
+            border:0;
+            background:#1746ff;
+            color:#fff;
+            padding:10px 18px;
+            border-radius:10px;
+            font-weight:800;
+            cursor:pointer;
+          "
+        >
+          Try Again
+        </button>
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   GET CUSTOMER PRICE
+   ===================================================== */
+
+function getCustomerPrice(planName, basePrice){
+
+  const normalized =
+    normalizePlanName(planName);
+
+  const margin =
+    MARGINS[network]?.[normalized];
+
+  if(margin === undefined){
+
+    return Number(basePrice);
+
+  }
+
+  return Number(
+    (Number(basePrice) + Number(margin))
+      .toFixed(2)
+  );
+
+}
+
+
+/* =====================================================
    RENDER BUNDLES
-========================= */
+   ===================================================== */
 
 function render(){
 
   bundles.innerHTML = "";
 
-  PLANS[network].forEach(p => {
+  const list =
+    liveBundles[network] || [];
 
-    const b = document.createElement("button");
+  if(list.length === 0){
+
+    bundles.innerHTML =
+      '<div class="loading">Loading bundles...</div>';
+
+    return;
+
+  }
+
+  list.forEach(bundle => {
+
+    const planName =
+      normalizePlanName(bundle.plan_name);
+
+    const basePrice =
+      Number(bundle.price);
+
+    const customerPrice =
+      getCustomerPrice(
+        planName,
+        basePrice
+      );
+
+    const b =
+      document.createElement("button");
 
     b.className = "bundle";
 
     b.innerHTML = `
       <div class="bundle-top">
-        <span class="network-badge">${network}</span>
+        <span class="network-badge">
+          ${network === "Airteltigo" ? "AirtelTigo" : network}
+        </span>
         <span>📶</span>
       </div>
 
-      <div class="bundle-size">${p[0]}</div>
+      <div class="bundle-size">
+        ${planName}
+      </div>
 
       <div class="bundle-price">
-        GH₵ ${Number(p[1]).toFixed(2)}
+        GH₵ ${customerPrice.toFixed(2)}
       </div>
 
       <div style="color:#667085;font-size:12px;margin-top:7px;">
@@ -1253,26 +1217,29 @@ function render(){
       </div>
     `;
 
-
     b.onclick = () => {
 
       selected = {
-        network: network,
-        name: p[0],
-        price: Number(p[1])
+        network:network,
+        name:planName,
+        price:customerPrice,
+        basePrice:basePrice
       };
 
       document
         .querySelectorAll(".bundle")
-        .forEach(x => x.classList.remove("chosen"));
+        .forEach(x =>
+          x.classList.remove("chosen")
+        );
 
       b.classList.add("chosen");
 
       choice.textContent =
-        network + " • " + p[0];
+        network + " • " + planName;
 
       price.textContent =
-        "GH₵ " + Number(p[1]).toFixed(2);
+        "GH₵ " +
+        customerPrice.toFixed(2);
 
       pay.disabled = false;
 
@@ -1294,9 +1261,9 @@ function render(){
 }
 
 
-/* =========================
+/* =====================================================
    NETWORK BUTTONS
-========================= */
+   ===================================================== */
 
 document
   .querySelectorAll("[data-network]")
@@ -1304,7 +1271,8 @@ document
 
     b.onclick = () => {
 
-      network = b.dataset.network;
+      network =
+        b.dataset.network;
 
       selected = null;
 
@@ -1313,7 +1281,8 @@ document
       choice.textContent =
         "No bundle selected";
 
-      price.textContent = "—";
+      price.textContent =
+        "—";
 
       message.textContent = "";
 
@@ -1325,24 +1294,30 @@ document
 
       b.classList.add("active");
 
-      render();
+      loadBundles();
 
     };
 
   });
 
 
-/* =========================
+/* =====================================================
    PAYSTACK PAYMENT
-========================= */
+   ===================================================== */
 
 pay.onclick = async () => {
 
   const ph =
-    document.getElementById("phone").value.trim();
+    document
+      .getElementById("phone")
+      .value
+      .trim();
 
   const email =
-    document.getElementById("email").value.trim();
+    document
+      .getElementById("email")
+      .value
+      .trim();
 
 
   if(!selected){
@@ -1383,32 +1358,33 @@ pay.onclick = async () => {
 
   try{
 
-    const response = await fetch(
-      "/api/paystack-initialize",
-      {
-        method:"POST",
+    const response =
+      await fetch(
+        "/api/paystack-initialize",
+        {
+          method:"POST",
 
-        headers:{
-          "Content-Type":
-            "application/json"
-        },
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
 
-        body:JSON.stringify({
+          body:JSON.stringify({
 
-          email:email,
+            email:email,
 
-          amount:selected.price,
+            amount:selected.price,
 
-          network:selected.network,
+            network:selected.network,
 
-          data_plan:selected.name,
+            data_plan:selected.name,
 
-          beneficiary:ph
+            beneficiary:ph
 
-        })
+          })
 
-      }
-    );
+        }
+      );
 
 
     const result =
@@ -1469,9 +1445,9 @@ pay.onclick = async () => {
 };
 
 
-/* =========================
+/* =====================================================
    ORDER STATUS
-========================= */
+   ===================================================== */
 
 document
   .getElementById("statusForm")
@@ -1480,11 +1456,14 @@ document
     e.preventDefault();
 
     const reference =
-      document.getElementById("ref")
-      .value.trim();
+      document
+        .getElementById("ref")
+        .value
+        .trim();
 
     const resultBox =
-      document.getElementById("statusResult");
+      document
+        .getElementById("statusResult");
 
 
     if(!reference) return;
@@ -1542,22 +1521,27 @@ document
   };
 
 
-/* =========================
+/* =====================================================
    OTHER SERVICES
-========================= */
+   ===================================================== */
 
 function showService(service, amount){
 
-  document.getElementById("modalTitle")
+  document
+    .getElementById("modalTitle")
     .textContent = service;
 
-  document.getElementById("modalText")
+  document
+    .getElementById("modalText")
     .innerHTML =
-      "<strong>" + amount + "</strong><br><br>" +
+      "<strong>" +
+      amount +
+      "</strong><br><br>" +
       "This service is available from Endurance Data Hub. " +
       "Please contact us to complete your request.";
 
-  document.getElementById("serviceModal")
+  document
+    .getElementById("serviceModal")
     .classList.add("show");
 
 }
@@ -1565,7 +1549,8 @@ function showService(service, amount){
 
 function closeService(){
 
-  document.getElementById("serviceModal")
+  document
+    .getElementById("serviceModal")
     .classList.remove("show");
 
 }
@@ -1573,19 +1558,23 @@ function closeService(){
 
 document
   .getElementById("serviceModal")
-  .addEventListener("click", function(e){
+  .addEventListener(
+    "click",
+    function(e){
 
-    if(e.target === this){
-      closeService();
+      if(e.target === this){
+        closeService();
+      }
+
     }
+  );
 
-  });
 
+/* =====================================================
+   INITIAL LOAD
+   ===================================================== */
 
-/* INITIAL LOAD */
-render();
+loadBundles();
 
-</script>
-
-</body>
-        </html>
+</script></body>
+  </html>
