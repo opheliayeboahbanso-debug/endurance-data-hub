@@ -507,6 +507,7 @@ nav a{
   background:#1746ff;
   color:#fff;
   font-weight:800;
+  cursor:pointer;
 }
 
 .trust{background:#f5f8ff}
@@ -651,12 +652,16 @@ footer a{
 <body>
 
 <header>
+
   <div class="brand">
+
     <span class="logo">E</span>
+
     <div>
       <b>ENDURANCE</b>
       <small>DATA HUB</small>
     </div>
+
   </div>
 
   <nav>
@@ -665,14 +670,22 @@ footer a{
     <a href="#orders">Check Order</a>
   </nav>
 
-  <a class="header-btn" href="#buy">Buy Now ⚡</a>
+  <a class="header-btn" href="#buy">
+    Buy Now ⚡
+  </a>
+
 </header>
 
+
 <section class="hero">
+
   <div class="hero-inner">
 
     <div>
-      <span class="pill">⚡ FAST • AFFORDABLE • RELIABLE</span>
+
+      <span class="pill">
+        ⚡ FAST • AFFORDABLE • RELIABLE
+      </span>
 
       <h1>
         Stay connected.<br>
@@ -686,283 +699,546 @@ footer a{
       </p>
 
       <div class="hero-buttons">
-        <a class="btn" href="#buy">📶 Buy Data</a>
-        <a class="btn secondary" href="#services">✨ Other Services</a>
+
+        <a class="btn" href="#buy">
+          📶 Buy Data
+        </a>
+
+        <a class="btn secondary" href="#services">
+          ✨ Other Services
+        </a>
+
       </div>
 
       <div class="hero-features">
-        <div class="feature">⚡ Fast Delivery</div>
-        <div class="feature">🔒 Secure Payment</div>
-        <div class="feature">🎧 Reliable Service</div>
+
+        <div class="feature">
+          ⚡ Fast Delivery
+        </div>
+
+        <div class="feature">
+          🔒 Secure Payment
+        </div>
+
+        <div class="feature">
+          🎧 Reliable Service
+        </div>
+
       </div>
+
     </div>
 
+
     <div class="hero-card">
+
       <div class="float f1">📶</div>
       <div class="float f2">📱</div>
       <div class="float f3">🎓</div>
       <div class="float f4">📝</div>
 
       <div class="hero-phone">
+
         <div class="hero-phone-inner">
           ⚡<br>
           Endurance<br>
           Data Hub
         </div>
+
       </div>
+
     </div>
 
   </div>
+
 </section>
+
 
 <section id="buy" class="section data-section">
 
-<div class="container">
+  <div class="container">
 
-  <div class="section-head">
-    <div>
-      <h2>📶 Data Bundles</h2>
-      <p>Choose your network and bundle.</p>
-    </div>
-  </div>
+    <div class="section-head">
 
-  <div class="networks">
-    <button class="active" data-network="MTN">🟡 MTN</button>
-    <button data-network="Express(MTN)">⚡ MTN Express</button>
-    <button data-network="Airteltigo">🔴 AirtelTigo</button>
-    <button data-network="Telecel">🟢 Telecel</button>
-  </div>
+      <div>
 
-  <div id="bundles" class="grid">
-    <div class="loading">
-      Loading current data bundles...
-    </div>
-  </div>
+        <h2>📶 Data Bundles</h2>
 
-  <div class="checkout">
+        <p>
+          Choose your network and bundle.
+        </p>
 
-    <h3>🛒 Your Order</h3>
+      </div>
 
-    <div class="summary">
-      <span id="choice">No bundle selected</span>
-      <b id="price">—</b>
     </div>
 
-    <label>
-      Beneficiary phone number
-      <input
-        id="phone"
-        maxlength="10"
-        placeholder="0241234567"
-        inputmode="numeric"
+
+    <div class="networks">
+
+      <button
+        class="active"
+        data-network="MTN"
       >
-    </label>
+        🟡 MTN
+      </button>
 
-    <label>
-      Email address
-      <input
-        id="email"
-        type="email"
-        placeholder="you@example.com"
+      <button
+        data-network="Express(MTN)"
       >
-    </label>
+        ⚡ MTN Express
+      </button>
 
-    <button id="pay" class="pay" disabled>
-      Pay securely with Paystack
-    </button>
+      <button
+        data-network="Airteltigo"
+      >
+        🔴 AirtelTigo
+      </button>
 
-    <p id="message" class="message"></p>
+      <button
+        data-network="Telecel"
+      >
+        🟢 Telecel
+      </button>
 
-    <small class="secure">
-      🔒 Secure payment • Payment details are handled by Paystack
-    </small>
+    </div>
+
+
+    <div id="bundles" class="grid">
+
+      <div class="loading">
+        Loading current data bundles...
+      </div>
+
+    </div>
+
+
+    <div class="checkout">
+
+      <h3>
+        🛒 Your Order
+      </h3>
+
+      <div class="summary">
+
+        <span id="choice">
+          No bundle selected
+        </span>
+
+        <b id="price">
+          —
+        </b>
+
+      </div>
+
+
+      <label>
+
+        Beneficiary phone number
+
+        <input
+          id="phone"
+          maxlength="10"
+          placeholder="0241234567"
+          inputmode="numeric"
+        >
+
+      </label>
+
+
+      <label>
+
+        Email address
+
+        <input
+          id="email"
+          type="email"
+          placeholder="you@example.com"
+        >
+
+      </label>
+
+
+      <button
+        id="pay"
+        class="pay"
+        disabled
+      >
+        Pay securely with Paystack
+      </button>
+
+
+      <p
+        id="message"
+        class="message"
+      ></p>
+
+
+      <small class="secure">
+        🔒 Secure payment • Payment details are handled by Paystack
+      </small>
+
+    </div>
 
   </div>
 
-</div>
 </section>
 
-<section id="services" class="section services-section">
 
-<div class="container">
+<section
+  id="services"
+  class="section services-section"
+>
 
-  <div class="section-head">
-    <div>
-      <h2>✨ Other Services</h2>
-      <p>We offer more than just data.</p>
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+
+        <h2>
+          ✨ Other Services
+        </h2>
+
+        <p>
+          We offer more than just data.
+        </p>
+
+      </div>
+
     </div>
+
+
+    <div class="services">
+
+
+      <div class="service">
+
+        <div class="service-icon green">
+          📝
+        </div>
+
+        <h3>
+          AFA Registration
+        </h3>
+
+        <p>
+          Get assistance with your Apprenticeship Forms Automation
+          (AFA) registration.
+        </p>
+
+        <div class="service-price">
+          GH₵20.00
+        </div>
+
+        <button
+          onclick="showService(
+            'AFA Registration',
+            'GH₵20.00'
+          )"
+        >
+          Register Now →
+        </button>
+
+      </div>
+
+
+      <div class="service">
+
+        <div class="service-icon blue">
+          🎓
+        </div>
+
+        <h3>
+          BECE Results Checker
+        </h3>
+
+        <p>
+          Check your BECE results quickly and conveniently.
+        </p>
+
+        <div class="service-price">
+          GH₵22.00
+        </div>
+
+        <button
+          onclick="showService(
+            'BECE Results Checker',
+            'GH₵22.00'
+          )"
+        >
+          Check Now →
+        </button>
+
+      </div>
+
+
+      <div class="service">
+
+        <div class="service-icon purple">
+          🎓
+        </div>
+
+        <h3>
+          WASSCE Results Checker
+        </h3>
+
+        <p>
+          Check your WASSCE results quickly and conveniently.
+        </p>
+
+        <div class="service-price">
+          GH₵25.00
+        </div>
+
+        <button
+          onclick="showService(
+            'WASSCE Results Checker',
+            'GH₵25.00'
+          )"
+        >
+          Check Now →
+        </button>
+
+      </div>
+
+
+      <div class="service">
+
+        <div class="service-icon orange">
+          🏫
+        </div>
+
+        <h3>
+          School Placement Checker
+        </h3>
+
+        <p>
+          Check your school placement results with ease.
+        </p>
+
+        <div class="service-price">
+          GH₵25.00
+        </div>
+
+        <button
+          onclick="showService(
+            'School Placement Checker',
+            'GH₵25.00'
+          )"
+        >
+          Check Now →
+        </button>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="services">
-
-    <div class="service">
-      <div class="service-icon green">📝</div>
-      <h3>AFA Registration</h3>
-      <p>
-        Get assistance with your Apprenticeship Forms Automation
-        (AFA) registration.
-      </p>
-      <div class="service-price">GH₵20.00</div>
-      <button onclick="showService('AFA Registration','GH₵20.00')">
-        Register Now →
-      </button>
-    </div>
-
-    <div class="service">
-      <div class="service-icon blue">🎓</div>
-      <h3>BECE Results Checker</h3>
-      <p>
-        Check your BECE results quickly and conveniently.
-      </p>
-      <div class="service-price">GH₵22.00</div>
-      <button onclick="showService('BECE Results Checker','GH₵22.00')">
-        Check Now →
-      </button>
-    </div>
-
-    <div class="service">
-      <div class="service-icon purple">🎓</div>
-      <h3>WASSCE Results Checker</h3>
-      <p>
-        Check your WASSCE results quickly and conveniently.
-      </p>
-      <div class="service-price">GH₵25.00</div>
-      <button onclick="showService('WASSCE Results Checker','GH₵25.00')">
-        Check Now →
-      </button>
-    </div>
-
-    <div class="service">
-      <div class="service-icon orange">🏫</div>
-      <h3>School Placement Checker</h3>
-      <p>
-        Check your school placement results with ease.
-      </p>
-      <div class="service-price">GH₵25.00</div>
-      <button onclick="showService('School Placement Checker','GH₵25.00')">
-        Check Now →
-      </button>
-    </div>
-
-  </div>
-</div>
 </section>
 
-<section id="orders" class="section status-section">
 
-<div class="container">
+<section
+  id="orders"
+  class="section status-section"
+>
 
-  <div class="status">
+  <div class="container">
 
-    <h2>🔎 Check Your Order</h2>
+    <div class="status">
 
-    <p>
-      Enter your Boss order reference to check the current
-      delivery status of your data order.
-    </p>
+      <h2>
+        🔎 Check Your Order
+      </h2>
 
-    <form id="statusForm">
+      <p>
+        Enter your Boss order reference to check the current
+        delivery status of your data order.
+      </p>
 
-      <input
-        id="ref"
-        placeholder="Order reference"
-        required
-      >
 
-      <button type="submit">
-        Check Order
-      </button>
+      <form id="statusForm">
 
-    </form>
+        <input
+          id="ref"
+          placeholder="Order reference"
+          required
+        >
 
-    <p id="statusResult"></p>
+        <button type="submit">
+          Check Order
+        </button>
+
+      </form>
+
+
+      <p id="statusResult"></p>
+
+    </div>
 
   </div>
 
-</div>
 </section>
+
 
 <section class="section trust">
 
-<div class="container">
+  <div class="container">
 
-  <div class="trust-grid">
+    <div class="trust-grid">
 
-    <div class="trust-item">
-      <strong>🔒 Secure</strong>
-      <span>Your payment details are handled securely by Paystack.</span>
-    </div>
+      <div class="trust-item">
 
-    <div class="trust-item">
-      <strong>⚡ Fast Delivery</strong>
-      <span>Data orders are submitted automatically after payment.</span>
-    </div>
+        <strong>
+          🔒 Secure
+        </strong>
 
-    <div class="trust-item">
-      <strong>🎧 Reliable</strong>
-      <span>We're here to help when you need us.</span>
-    </div>
+        <span>
+          Your payment details are handled securely by Paystack.
+        </span>
 
-    <div class="trust-item">
-      <strong>💰 Affordable</strong>
-      <span>Get convenient prices for your everyday needs.</span>
+      </div>
+
+
+      <div class="trust-item">
+
+        <strong>
+          ⚡ Fast Delivery
+        </strong>
+
+        <span>
+          Data orders are submitted automatically after payment.
+        </span>
+
+      </div>
+
+
+      <div class="trust-item">
+
+        <strong>
+          🎧 Reliable
+        </strong>
+
+        <span>
+          We're here to help when you need us.
+        </span>
+
+      </div>
+
+
+      <div class="trust-item">
+
+        <strong>
+          💰 Affordable
+        </strong>
+
+        <span>
+          Get convenient prices for your everyday needs.
+        </span>
+
+      </div>
+
     </div>
 
   </div>
 
-</div>
 </section>
+
 
 <footer>
 
-<div class="footer-grid">
+  <div class="footer-grid">
 
-  <div>
-    <h3>⚡ Endurance Data Hub</h3>
-    <p>
-      Your one-stop shop for data bundles,
-      AFA registration, results checking and more.
-    </p>
+    <div>
+
+      <h3>
+        ⚡ Endurance Data Hub
+      </h3>
+
+      <p>
+        Your one-stop shop for data bundles,
+        AFA registration, results checking and more.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h3>
+        Quick Links
+      </h3>
+
+      <a href="#buy">
+        Buy Data
+      </a>
+
+      <a href="#services">
+        Other Services
+      </a>
+
+      <a href="#orders">
+        Check Order
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h3>
+        Support
+      </h3>
+
+      <p>
+        Need help with an order?
+      </p>
+
+      <p>
+        Contact Endurance Data Hub for assistance.
+      </p>
+
+    </div>
+
   </div>
 
-  <div>
-    <h3>Quick Links</h3>
-    <a href="#buy">Buy Data</a>
-    <a href="#services">Other Services</a>
-    <a href="#orders">Check Order</a>
+
+  <div class="copyright">
+
+    © 2026 Endurance Data Hub • Ghana • All rights reserved.
+
   </div>
-
-  <div>
-    <h3>Support</h3>
-    <p>Need help with an order?</p>
-    <p>Contact Endurance Data Hub for assistance.</p>
-  </div>
-
-</div>
-
-<div class="copyright">
-  © 2026 Endurance Data Hub • Ghana • All rights reserved.
-</div>
 
 </footer>
 
-<div id="serviceModal" class="modal">
+
+<div
+  id="serviceModal"
+  class="modal"
+>
 
   <div class="modal-box">
 
-    <div class="modal-icon">✨</div>
+    <div class="modal-icon">
+      ✨
+    </div>
 
-    <h3 id="modalTitle">Service</h3>
+    <h3 id="modalTitle">
+      Service
+    </h3>
 
     <p id="modalText"></p>
 
-    <button class="close-modal" onclick="closeService()">
+    <button
+      class="close-modal"
+      onclick="closeService()"
+    >
       Close
     </button>
 
   </div>
 
 </div>
+
 
 <script>
 
@@ -975,6 +1251,7 @@ let network = "MTN";
 let selected = null;
 let liveBundles = {};
 
+
 /*
   These are ONLY your PROFIT MARGINS.
 
@@ -985,6 +1262,7 @@ let liveBundles = {};
 const MARGINS = {
 
   "MTN": {
+
     "1 GB":1.80,
     "2 GB":2.60,
     "3 GB":2.40,
@@ -1004,9 +1282,12 @@ const MARGINS = {
     "50 GB":5.00,
     "100":4.00,
     "100 GB":4.00
+
   },
 
+
   "Express(MTN)": {
+
     "1 GB":1.80,
     "2 GB":2.60,
     "3 GB":2.40,
@@ -1024,9 +1305,12 @@ const MARGINS = {
     "40 GB":4.00,
     "50 GB":5.00,
     "100 GB":4.00
+
   },
 
+
   "Airteltigo": {
+
     "1 GB":1.50,
     "2 GB":2.00,
     "3 GB":2.00,
@@ -1037,9 +1321,12 @@ const MARGINS = {
     "10 GB":2.00,
     "15 GB":2.00,
     "20 GB":2.00
+
   },
 
+
   "Telecel": {
+
     "10 GB":3.00,
     "15 GB":10.00,
     "20 GB":10.00,
@@ -1048,15 +1335,26 @@ const MARGINS = {
     "40 GB":5.00,
     "50 GB":3.00,
     "100 GB":2.00
+
   }
 
 };
 
-const bundles = document.getElementById("bundles");
-const choice = document.getElementById("choice");
-const price = document.getElementById("price");
-const pay = document.getElementById("pay");
-const message = document.getElementById("message");
+
+const bundles =
+  document.getElementById("bundles");
+
+const choice =
+  document.getElementById("choice");
+
+const price =
+  document.getElementById("price");
+
+const pay =
+  document.getElementById("pay");
+
+const message =
+  document.getElementById("message");
 
 
 /* =====================================================
@@ -1083,18 +1381,22 @@ async function loadBundles(){
 
   try{
 
-    const response = await fetch(
-      "/api/bundles?network=" +
-      encodeURIComponent(network),
-      {
-        method:"GET",
-        headers:{
-          "Accept":"application/json"
+    const response =
+      await fetch(
+        "/api/bundles?network=" +
+        encodeURIComponent(network),
+        {
+          method:"GET",
+          headers:{
+            "Accept":"application/json"
+          }
         }
-      }
-    );
+      );
 
-    const result = await response.json();
+
+    const result =
+      await response.json();
+
 
     if(!response.ok){
 
@@ -1105,12 +1407,17 @@ async function loadBundles(){
 
     }
 
+
     const list =
       result?.data?.bundles ||
       result?.bundles ||
       [];
 
-    if(!Array.isArray(list) || list.length === 0){
+
+    if(
+      !Array.isArray(list) ||
+      list.length === 0
+    ){
 
       throw new Error(
         "No bundles are currently available."
@@ -1118,16 +1425,17 @@ async function loadBundles(){
 
     }
 
-    /*
-      IMPORTANT:
-      Only display bundles that belong to the
-      network currently selected.
-    */
 
-    const filtered = list.filter(bundle =>
-      String(bundle.network).trim().toLowerCase() ===
-      String(network).trim().toLowerCase()
-    );
+    const filtered =
+      list.filter(bundle =>
+        String(bundle.network)
+          .trim()
+          .toLowerCase() ===
+        String(network)
+          .trim()
+          .toLowerCase()
+      );
+
 
     if(filtered.length === 0){
 
@@ -1138,18 +1446,30 @@ async function loadBundles(){
 
     }
 
-    liveBundles[network] = filtered;
+
+    liveBundles[network] =
+      filtered;
+
 
     render();
 
+
   }catch(error){
 
-    console.error("BUNDLE LOAD ERROR:",error);
+    console.error(
+      "BUNDLE LOAD ERROR:",
+      error
+    );
+
 
     bundles.innerHTML = `
       <div class="loading">
-        ❌ ${error.message || "Unable to load bundles."}
+
+        ❌ ${error.message ||
+          "Unable to load bundles."}
+
         <br><br>
+
         <button
           onclick="loadBundles()"
           style="
@@ -1164,6 +1484,7 @@ async function loadBundles(){
         >
           Try Again
         </button>
+
       </div>
     `;
 
@@ -1176,25 +1497,25 @@ async function loadBundles(){
    CUSTOMER PRICE
    ===================================================== */
 
-function getCustomerPrice(planName, basePrice){
+function getCustomerPrice(
+  planName,
+  basePrice
+){
 
   const normalized =
     normalizePlanName(planName);
 
+
   const margin =
     MARGINS[network]?.[normalized];
 
-  /*
-    If you haven't set a margin for a bundle,
-    do NOT secretly add anything.
-    Show the Boss price.
-  */
 
   if(margin === undefined){
 
     return Number(basePrice);
 
   }
+
 
   return Number(
     (
@@ -1214,16 +1535,22 @@ function render(){
 
   bundles.innerHTML = "";
 
+
   const list =
     liveBundles[network] || [];
+
 
   list.forEach(bundle => {
 
     const planName =
-      normalizePlanName(bundle.plan_name);
+      normalizePlanName(
+        bundle.plan_name
+      );
+
 
     const basePrice =
       Number(bundle.price);
+
 
     const customerPrice =
       getCustomerPrice(
@@ -1231,31 +1558,44 @@ function render(){
         basePrice
       );
 
+
     const b =
       document.createElement("button");
 
+
     b.className = "bundle";
 
+
     b.innerHTML = `
+
       <div class="bundle-top">
 
         <span class="network-badge">
-          ${network === "Airteltigo"
-            ? "AirtelTigo"
-            : network}
+
+          ${
+            network === "Airteltigo"
+              ? "AirtelTigo"
+              : network
+          }
+
         </span>
 
-        <span>📶</span>
+        <span>
+          📶
+        </span>
 
       </div>
+
 
       <div class="bundle-size">
         ${planName}
       </div>
 
+
       <div class="bundle-price">
         GH₵ ${customerPrice.toFixed(2)}
       </div>
+
 
       <div style="
         color:#667085;
@@ -1265,10 +1605,13 @@ function render(){
         Fast delivery
       </div>
 
+
       <div class="buy-mini">
         Buy Now →
       </div>
+
     `;
+
 
     b.onclick = () => {
 
@@ -1284,24 +1627,33 @@ function render(){
 
       };
 
+
       document
         .querySelectorAll(".bundle")
         .forEach(x =>
           x.classList.remove("chosen")
         );
 
+
       b.classList.add("chosen");
 
+
       choice.textContent =
-        network + " • " + planName;
+        network +
+        " • " +
+        planName;
+
 
       price.textContent =
         "GH₵ " +
         customerPrice.toFixed(2);
 
+
       pay.disabled = false;
 
+
       message.textContent = "";
+
 
       document
         .querySelector(".checkout")
@@ -1311,6 +1663,7 @@ function render(){
         });
 
     };
+
 
     bundles.appendChild(b);
 
@@ -1332,17 +1685,24 @@ document
       network =
         b.dataset.network;
 
+
       selected = null;
 
+
       pay.disabled = true;
+
 
       choice.textContent =
         "No bundle selected";
 
+
       price.textContent =
         "—";
 
-      message.textContent = "";
+
+      message.textContent =
+        "";
+
 
       document
         .querySelectorAll("[data-network]")
@@ -1350,7 +1710,9 @@ document
           x.classList.remove("active")
         );
 
+
       b.classList.add("active");
+
 
       loadBundles();
 
@@ -1371,11 +1733,13 @@ pay.onclick = async () => {
       .value
       .trim();
 
+
   const email =
     document
       .getElementById("email")
       .value
       .trim();
+
 
   if(!selected){
 
@@ -1386,6 +1750,7 @@ pay.onclick = async () => {
 
   }
 
+
   if(!/^[0-9]{10}$/.test(ph)){
 
     message.textContent =
@@ -1395,7 +1760,10 @@ pay.onclick = async () => {
 
   }
 
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+
+  if(
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  ){
 
     message.textContent =
       "Please enter a valid email address.";
@@ -1404,10 +1772,13 @@ pay.onclick = async () => {
 
   }
 
+
   pay.disabled = true;
+
 
   message.textContent =
     "Preparing secure payment...";
+
 
   try{
 
@@ -1415,6 +1786,7 @@ pay.onclick = async () => {
       await fetch(
         "/api/paystack-initialize",
         {
+
           method:"POST",
 
           headers:{
@@ -1439,8 +1811,10 @@ pay.onclick = async () => {
         }
       );
 
+
     const result =
       await response.json();
+
 
     if(
       !response.ok ||
@@ -1455,6 +1829,7 @@ pay.onclick = async () => {
       );
 
     }
+
 
     sessionStorage.setItem(
       "pendingOrder",
@@ -1476,16 +1851,20 @@ pay.onclick = async () => {
       })
     );
 
+
     window.location.href =
       result.data.authorization_url;
+
 
   }catch(error){
 
     console.error(error);
 
+
     message.textContent =
       error.message ||
       "Unable to start payment. Please try again.";
+
 
     pay.disabled = false;
 
@@ -1504,20 +1883,32 @@ document
 
     e.preventDefault();
 
+
     const reference =
       document
         .getElementById("ref")
         .value
         .trim();
 
+
     const resultBox =
       document
         .getElementById("statusResult");
 
-    if(!reference) return;
+
+    if(!reference){
+
+      resultBox.textContent =
+        "Please enter your Boss order reference.";
+
+      return;
+
+    }
+
 
     resultBox.textContent =
       "Checking order...";
+
 
     try{
 
@@ -1527,38 +1918,149 @@ document
           encodeURIComponent(reference)
         );
 
-      const data =
+
+      const result =
         await response.json();
 
-      if(!response.ok){
+
+      console.log(
+        "ORDER STATUS RESPONSE:",
+        result
+      );
+
+
+      if(
+        !response.ok ||
+        !result.success
+      ){
 
         throw new Error(
-          data.error ||
-          "Unable to check order."
+          result.error ||
+          "Unable to check order status."
         );
 
       }
 
-      const order =
-        data.data || data;
 
-      resultBox.textContent =
-        "Order status: " +
-        (
-          order.status ||
-          "Unavailable"
-        ) +
-        (
-          order.reference
-          ? " • " + order.reference
-          : ""
-        );
+      /*
+        The backend returns the Boss API
+        response inside result.boss_response.
+      */
+
+      const boss =
+        result.boss_response || {};
+
+
+      /*
+        Boss may return the order directly,
+        or inside order/data.
+      */
+
+      const order =
+        boss.order ||
+        boss.data?.order ||
+        boss.data ||
+        boss;
+
+
+      const status =
+        order.status ||
+        boss.status ||
+        result.status ||
+        "unknown";
+
+
+      const bossReference =
+        order.reference ||
+        boss.reference ||
+        result.reference ||
+        reference;
+
+
+      /*
+        Convert:
+        pending_wallet
+        processing
+        success
+        delivered
+        failed
+
+        into readable text.
+      */
+
+      const cleanStatus =
+        String(status)
+          .replace(/_/g," ")
+          .replace(/\b\w/g,char =>
+            char.toUpperCase()
+          );
+
+
+      resultBox.innerHTML = `
+
+        <div style="
+          background:#f8f9fb;
+          border:1px solid #e4e7ec;
+          padding:18px;
+          border-radius:14px;
+          margin-top:15px;
+        ">
+
+          <div style="
+            font-weight:900;
+            font-size:17px;
+            color:#101828;
+          ">
+
+            Order status:
+            ${cleanStatus}
+
+          </div>
+
+
+          <div style="
+            margin-top:8px;
+            color:#667085;
+            font-size:13px;
+            word-break:break-word;
+          ">
+
+            ${bossReference}
+
+          </div>
+
+        </div>
+
+      `;
+
 
     }catch(error){
 
-      resultBox.textContent =
-        error.message ||
-        "Unable to check order status.";
+      console.error(
+        "ORDER STATUS CHECK ERROR:",
+        error
+      );
+
+
+      resultBox.innerHTML = `
+
+        <div style="
+          background:#fff4f4;
+          border:1px solid #ffd6d6;
+          color:#b42318;
+          padding:15px;
+          border-radius:12px;
+          margin-top:15px;
+        ">
+
+          ❌ ${
+            error.message ||
+            "Unable to check order status. Please try again."
+          }
+
+        </div>
+
+      `;
 
     }
 
@@ -1569,11 +2071,15 @@ document
    OTHER SERVICES
    ===================================================== */
 
-function showService(service, amount){
+function showService(
+  service,
+  amount
+){
 
   document
     .getElementById("modalTitle")
     .textContent = service;
+
 
   document
     .getElementById("modalText")
@@ -1583,6 +2089,7 @@ function showService(service, amount){
       "</strong><br><br>" +
       "This service is available from Endurance Data Hub. " +
       "Please contact us to complete your request.";
+
 
   document
     .getElementById("serviceModal")
@@ -1607,7 +2114,9 @@ document
     function(e){
 
       if(e.target === this){
+
         closeService();
+
       }
 
     }
